@@ -26,8 +26,9 @@ module.exports={
     aProductGet:(req,res)=>{
         res.render("adminEjsPages/adminProducts")
     },
-    aCategoryGet:(req,res)=>{
-        res.render("adminEjsPages/category")
+    aCategoryGet:async(req,res)=>{
+        const categorys =await categoryModel.find({})
+        res.render("adminEjsPages/category",{categorys})
     },
     aCouponGet:(req,res)=>{
         res.render("adminEjsPages/coupon")
