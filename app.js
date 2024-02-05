@@ -8,7 +8,7 @@ const bodyParser =require("body-parser")
 const twilio =require("twilio")
 const port =7000
 const userRouter =require("./router/userRouter")
-// const adminRouter =require("./router/adminRouter")
+const adminRouter =require("./router/adminRouter")
 
 app.use(session({
     secret: 'your-secret-key', // Change this to a secret key for session encryption
@@ -22,7 +22,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(flash())
 // app.set("views", path.join(__dirname, "views"));
 app.use("/",userRouter)
-// app.use("/admin",adminRouter)
+app.use("/",adminRouter)
 app.listen(port,()=>console.log(`server is running now......${port}`))
 
 

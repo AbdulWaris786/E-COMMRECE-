@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIGNUP PAGE</title>
+    <link rel="stylesheet" href="/style/aminSignup.css">
+</head>
+<body>
+    <div class="continer">
+        <div class="box">
+            <P class="p1">ADMIN SIGNUP PAGE</P>
+            <div class="form">
+                <form method="post" action="/admin/signup">
+                    <label for="name">USERNAME</label><br><br>
+                    <input type="text" class="name" id="username" name="name"><br><br>
+                    <label for="email">EMAIL ID</label><br><br>
+                    <p id="emailid"></p>
+                    <input type="email" name="email" class="emailid" id="email" required><br><br>
+                    <label for="number">COMPANY  NAME</label><br><br>
+                    <input type="text" name="compnayName" class="phone" id="comapny"><br><br>
+                    <label for="number">GST CODE OF COMAPNY</label><br><br>
+                    <input type="text" name="gstCode" class="phone" id="gst"><br><br>
+                    <label for="password">PASSWORD</label><br><br>
+                    <p id="pw"></p>
+                    <input type="password" name="password" class="pw" id="password" required><br><br>
+                    <label for="confirmpassword"> CONFIRM PASSWORD</label><br><br>
+                    <p id="conpw"></p>
+                    <input type="password" name="confirmpassword" class="conpw" id="confirmpassword" required><br><br>
+                    <button type="submit" class="submit">SIGNUP</button><br><br>
+                    <p>have an account? <a href="/admin/login">login</a></p>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="/js/clientValidation.js"></script>
+</body>
+</html>

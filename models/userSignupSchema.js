@@ -19,6 +19,10 @@ const schema ={
     },
     verify:{
         type:String
+    },
+    Verification:{
+        type:String,
+        
     }
 }
 

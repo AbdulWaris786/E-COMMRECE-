@@ -12,15 +12,19 @@
         <form action="/user/otp/<%=otpData._id%>" method="post">
             <div class="form-group">
                 <label for="email">Email:</label>
-                <input type="email" id="email" name="email" value="<%=otpData.email%>" required>
+                <input type="email" id="email" name="email" value="<%=otpData.email%>">
             </div>
             <div class="form-group">
                 <label for="phone">Phone Number:</label>
-                <input type="tel" id="phone" name="phone" value="<%=otpData.phone%>" required>  
+                <input type="tel" id="phone" name="phone" value="<%=otpData.phone%>">  
             </div>
-            <div class="form-group">
+            <!-- <div class="form-group">
                 <label for="phone">Whatsapp Number:</label>
-                <input type="tel" id="phone" name="whatsapp" value="<%=otpData.phone%>" required>  
+                <input type="tel" id="phone" name="whatsapp" value="<%=otpData.phone%>">  
+            </div> -->
+            <div class="form-group">
+                <label for="phone">Verification otp in</label>
+                <input type="tel" id="phone" name="Verification" value="<%=otpData.Verification%>" >  
             </div>
             <button type="submit">Send OTP</button>
         </form>

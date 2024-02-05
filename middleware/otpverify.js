@@ -1,0 +1,1 @@
+exports.otpCode = parseInt(Math.random()*10000)

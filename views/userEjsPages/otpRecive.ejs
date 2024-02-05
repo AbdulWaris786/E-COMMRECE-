@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OTP Receiving Page</title>
+    <link rel="stylesheet" href="/style/otpRecive.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Enter OTP</h2>
+        <form id="otpForm" action="/user/otpRecive/<%=otpDetails._id%>" method="post">
+            <div class="form-group">
+                <label for="otp">OTP:</label>
+                <input type="text" id="otp" name="otp" placeholder="Enter OTP " >
+                <input type="text" id="email" name="email" value="<%=otpDetails.email%>" hidden>
+                <input type="text" id="phone" name="Verification" value="<%=otpDetails.Verification%>" hidden >
+                <input type="text" id="phone" name="phone" value="<%=otpDetails.phone%>" hidden >
+            </div>
+            <div class="form-group">
+                <button type="submit">Submit OTP</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
