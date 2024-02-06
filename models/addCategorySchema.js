@@ -9,7 +9,8 @@ const categorySchema={
         type:String
     },
     subCategory:{
-        type:String
+        type:Array,
+        default:[]
     }
 }
 

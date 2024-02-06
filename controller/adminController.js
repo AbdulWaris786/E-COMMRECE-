@@ -31,6 +31,7 @@ module.exports={
     },
     aCategoryGet:async(req,res)=>{
         const categorys =await categoryModel.find({})
+        console.log(categorys);
         res.render("adminEjsPages/category",{categorys})
     },
     aCouponGet:(req,res)=>{
@@ -160,17 +161,53 @@ module.exports={
     },
     aCategoryPost:async(req,res)=>{
         
+        // try {
+        //     console.log("admin in category adding");
+        //     const {categoryName,subCategory}=req.body
+        //     const categoryImage =req.file?.filename
+        //     const newCategory = new categoryModel({
+        //         categoryImage,categoryName,subCategory
+        //     })
+        //     await newCategory.save()
+
+        //     console.log("category added");
+        //     res.redirect("/admin/category")
+        // } catch (error) {
+        //     console.error(error);
+        //     res.status(500).json({ message: 'Internal Server Error' });
+        // }
         try {
-            console.log("admin in category adding");
             const {categoryName,subCategory}=req.body
             const categoryImage =req.file?.filename
-            const newCategory = new categoryModel({
-                categoryImage,categoryName,subCategory
-            })
-            await newCategory.save()
-
-            console.log("category added");
-            res.redirect("/admin/category")
+            console.log(req.body);
+            if (!categoryName||!subCategory) {
+                
+                const categorys =await categoryModel.find()
+                return res.render("adminEjsPages/category",{categorys})
+            }else{
+                
+                const  existingCategory =await categoryModel.findOne({categoryName})
+                if(existingCategory){
+                    await categoryModel.findOneAndUpdate(
+                        { categoryName : categoryName},
+                        {$push:{subCategory:subCategory}},
+                        {new:true,upsert:true}
+                    )
+                    
+                        const categorys= await categoryModel.find()
+                        return res.render("adminEjsPages/category",{categorys})
+                }else{
+                    
+                    const newCategory=new categoryModel({
+                        categoryImage,
+                        categoryName,
+                        subCategory
+                    })
+                    await newCategory.save()
+                    const categorys= await categoryModel.find()
+                    return res.render("adminEjsPages/category",{categorys})
+                }
+            }
         } catch (error) {
             console.error(error);
             res.status(500).json({ message: 'Internal Server Error' });
