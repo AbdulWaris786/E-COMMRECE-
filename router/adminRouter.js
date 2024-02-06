@@ -8,7 +8,7 @@ const {
     aLoginGet,aLoginPost,
     aSignupGet,aSignupPost,
     aHomePage,
-    aUsersGet,aUserDltGet,
+    aUsersGet,
     aProductGet,aProductPost,
     aCategoryGet,aCategoryPost,
     aCouponGet,aCouponPost,
@@ -17,7 +17,9 @@ const {
     addProductGet,addProductPost,
     addCategoryGet,addCategoryPost,
     addCouponGet,addCouponPost,
-    addBannerGet,addBannerPost
+    addBannerGet,addBannerPost,
+    aUserDltGet,aCategoryDltGet,
+    aCategoryEditGet,aCategoryEditPost
 
 }= require("../controller/adminController")
 
@@ -28,6 +30,7 @@ router.get("/admin/login",aLoginGet)
 .get("/admin/user/:id",aUserDltGet)
 .get("/admin/product",aProductGet)
 .get("/admin/category",aCategoryGet)
+.get("/admin/categorydlt/:id",aCategoryDltGet)
 .get("/admin/coupons",aCouponGet)
 .get("/admin/orders",aOrderGet)
 .get("/admin/banner",aBannerGet)
@@ -35,6 +38,7 @@ router.get("/admin/login",aLoginGet)
 .get("/admin/addCategory",addCategoryGet)
 .get("/admin/addCoupon",addCouponGet)
 .get("/admin/addBanner",addBannerGet)
+.get("/admin/editCategory/:id",aCategoryEditGet)
 
 
 .post("/admin/login",aLoginPost)
@@ -48,7 +52,7 @@ router.get("/admin/login",aLoginGet)
 .post("/admin/addCateory",addCategoryPost)
 .post("/admin/addCoupon",addCouponPost)
 .post("/admin/addBanner",addBannerPost)
-
+.post("/admin/editcategory/:id",setUploadType("category"),upload.single("categoryImage"),aCategoryEditPost)
 
 
 module.exports=router

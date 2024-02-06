@@ -3,6 +3,9 @@ const userSignupModel=require("../models/userSignupSchema")
 const bcrypt =require("bcrypt");
 const flash = require("connect-flash");
 const categoryModel = require("../models/addCategorySchema")
+const path=require("path")
+const fs =require("fs");
+const { param } = require("../router/adminRouter");
 
 //verification of pattern AND password
 const emailPattern = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
@@ -51,13 +54,42 @@ module.exports={
     addBannerGet:(req,res)=>{
         res.render("adminEjsPages/addBannar")
     },
+    aCategoryDltGet:async(req,res)=>{
+        try {
+            const _id=req.params.id;
+            console.log(_id,"fdf");
+            const deleteCategory =await categoryModel.findByIdAndDelete(_id)
+            if(deleteCategory){
+                const oldImagePath = path.join(__dirname,'../public/uploads/category',deleteCategory.categoryImage)
+                fs.unlinkSync(oldImagePath)
+                res.status(200).redirect("/admin/category")
+            }else{
+                res.status(400).json({message:'Can not delete the coupon'}) 
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    },
     aUserDltGet:async(req,res)=>{
         try {
             const _id=req.params.id;
             await userSignupModel.deleteOne({_id})
             res.status(200).redirect("/admin/users")
         } catch (error) {
-            
+            console.log(error);
+        }
+    },
+    aCategoryEditGet:async(req,res)=>{
+        try {
+            const category =await categoryModel.findById(req.params.id)
+            if(!category){
+                return res.status(404).send("product not found")
+            }else{
+                res.render("adminEjsPages/editCategory",{category})
+            }
+        } catch (error) {
+            console.error(error);
+            res.status(500).send("server error")
         }
     },
     aLoginPost:async(req,res)=>{
@@ -142,6 +174,19 @@ module.exports={
         } catch (error) {
             console.error(error);
             res.status(500).json({ message: 'Internal Server Error' });
+        }
+    },
+    aCategoryEditPost:async(req,res)=>{
+        try {
+            const {categoryName,subCategory}=req.body
+            const categoryImage=req.file?.filename
+            console.log(req.body);
+            
+            await categoryModel.findByIdAndUpdate( req.params.id,{categoryImage,categoryName,subCategory})
+            res.redirect("/admin/category")
+        } catch (error) {
+            console.error(error);
+            res.status(500).send("server error")   
         }
     },
     aCouponPost:(req,res)=>{
