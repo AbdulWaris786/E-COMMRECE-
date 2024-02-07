@@ -19,7 +19,8 @@ const {
     addCouponGet,addCouponPost,
     addBannerGet,addBannerPost,
     aUserDltGet,aCategoryDltGet,
-    aCategoryEditGet,aCategoryEditPost
+    aCategoryEditGet,aCategoryEditPost,
+    aUserDetailsGet
 
 }= require("../controller/adminController")
 
@@ -39,6 +40,7 @@ router.get("/admin/login",aLoginGet)
 .get("/admin/addCoupon",addCouponGet)
 .get("/admin/addBanner",addBannerGet)
 .get("/admin/editCategory/:id",aCategoryEditGet)
+.get("/admin/userAddress/:id",aUserDetailsGet)
 
 
 .post("/admin/login",aLoginPost)

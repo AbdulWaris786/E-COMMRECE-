@@ -211,7 +211,7 @@ module.exports={
                     if(passwordMatch){
                         if(user.verify=="true"){
                             console.log("user loggin is sucessfully");
-                            req.session.email=email
+                            req.session.email= email
                             res.redirect("/")
                         }else{
                             console.log("plz verify your email ");
@@ -324,7 +324,9 @@ module.exports={
     addressAddPost:async(req,res)=>{
         const users=req.body
         const email =req.session.email
-        const userData =signupModal.findOne({email})
+        console.log(email); 
+        const userData =await signupModal.findOne({email})
+        console.log(userData);
         const obj= new mongoose.Types.ObjectId(userData._id)
         const {firstName,lastName,phone,streetAddress,country,state,city,pinCode}=users
         if(!userData){

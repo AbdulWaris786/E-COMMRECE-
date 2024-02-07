@@ -1,11 +1,13 @@
 const adminSignupModal = require("../models/adminSignupSchema");
 const userSignupModel=require("../models/userSignupSchema")
+const userAddressModel =require("../models/userAddressSchema")
 const bcrypt =require("bcrypt");
 const flash = require("connect-flash");
 const categoryModel = require("../models/addCategorySchema")
 const path=require("path")
 const fs =require("fs");
 const { param } = require("../router/adminRouter");
+const { default: mongoose } = require("mongoose");
 
 //verification of pattern AND password
 const emailPattern = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
@@ -54,6 +56,12 @@ module.exports={
     },
     addBannerGet:(req,res)=>{
         res.render("adminEjsPages/addBannar")
+    },
+    aUserDetailsGet:async(req,res)=>{
+        const obj=req.params.id
+        const address =await userAddressModel.findOne({obj})
+        console.log(address);
+        res.render("adminEjsPages/userDetails",{address})
     },
     aCategoryDltGet:async(req,res)=>{
         try {
