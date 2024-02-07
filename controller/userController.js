@@ -1,10 +1,13 @@
 const bcrypt =require("bcrypt")
 const signupData =require("../models/userSignupSchema")
+const profileModel =require("../models/userAddressSchema")
 const flash =require("connect-flash")
 const {accountSid,authToken,verifySid}=require("../server/config/otp_auth")
 const twilio =require("twilio")
 const nodemailer = require("nodemailer");
 const mailOtp =require("../middleware/otpverify")
+const { default: mongoose } = require("mongoose")
+const signupModal = require("../models/userSignupSchema")
 
 
 //otp sending in SMS
@@ -15,7 +18,7 @@ const emailPattern = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
 const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d@$!%*?&]{8,}$/;
 
 module.exports={
-    //=======================================get method===================================================
+    
     signupGet:(req,res)=>{
         const error = req.flash('error')
         res.render("userEjsPages/signup",{error})
@@ -43,7 +46,41 @@ module.exports={
     newPasswordGet:(req,res)=>{
         res.render("userEjsPages/enterNewPassword")
     },
-    //==============================================post method===============================================
+    addressAddGet: async (req, res) => {
+        try {
+            const email = req.session.email;
+            const userData = await signupData.findOne({ email });
+    
+            // Check if userData is null (no user found with the provided email)
+            if (!userData) {
+                return res.status(404).send("User not found");
+            }
+    
+            const obj = new mongoose.Types.ObjectId(userData._id);
+            const userDetails = await signupData.aggregate([
+                {
+                    $match: { _id: obj }
+                },
+                {
+                    $lookup: {
+                        from: "userAddressdetails",
+                        localField: '_id',
+                        foreignField: 'obj',
+                        as: 'address'
+                    }
+                }
+            ]);
+    
+            const fullData = userDetails[0];
+            
+            res.render("userEjsPages/userAddressAdd", { fullData });
+        } catch (error) {
+            console.error("Error:", error);
+            res.status(500).send("Internal Server Error");
+        }
+    },
+    
+    
     signupPost:async(req,res)=>{
         //data collection
         const {name,phone,email,password,Verification}=req.body
@@ -164,9 +201,9 @@ module.exports={
 
         try {
                 
-                console.log(req.body);
+                
                 const user =await signupData.findOne({email})
-                console.log(user);
+                
                 if(!user){
                     console.log("error occured while finding the user");
                 }else{
@@ -174,6 +211,7 @@ module.exports={
                     if(passwordMatch){
                         if(user.verify=="true"){
                             console.log("user loggin is sucessfully");
+                            req.session.email=email
                             res.redirect("/")
                         }else{
                             console.log("plz verify your email ");
@@ -282,5 +320,28 @@ module.exports={
             console.error(err.message,"reset password post error");
             res.status(500).send("internal server error")
         }
+    },
+    addressAddPost:async(req,res)=>{
+        const users=req.body
+        const email =req.session.email
+        const userData =signupModal.findOne({email})
+        const obj= new mongoose.Types.ObjectId(userData._id)
+        const {firstName,lastName,phone,streetAddress,country,state,city,pinCode}=users
+        if(!userData){
+            return res.status(404).send("User not found");
+        }else{
+            await profileModel.updateOne(
+                {obj:obj},
+                {
+                    $set:{firstName,lastName,phone,streetAddress,country,state,city,pinCode}
+                },
+            {
+                upsert:true
+            }
+             )
+             res.redirect('/')
+        }
+
+        
     }
 }

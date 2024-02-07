@@ -8,7 +8,8 @@ const {
     otpReciveGet,otpRecivePost,
     forgotPasswordGet,forgotPasswordPost,
     newPasswordGet,newPasswordPost,
-    forgotOtpGet,forgotOtpPost
+    forgotOtpGet,forgotOtpPost,
+    addressAddGet,addressAddPost
 }= require("../controller/userController")
 
 
@@ -20,6 +21,7 @@ router.get("/user/login",loginGet)
     .get("/user/forgotPassword",forgotPasswordGet)
     .get("/user/newPassword",newPasswordGet)
     .get("/user/forgotOtp",forgotOtpGet)
+    .get("/user/addressAdd",addressAddGet)
 
 
 
@@ -30,6 +32,7 @@ router.get("/user/login",loginGet)
     .post("/user/forgotPassword",forgotPasswordPost)
     .post("/user/newPassword",newPasswordPost)
     .post("/user/forgotOtp",forgotOtpPost)
+    .post("/user/addressAdd",addressAddPost)
     
 
 
