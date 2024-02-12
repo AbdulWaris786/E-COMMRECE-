@@ -43,7 +43,7 @@
 
                         <!--====== Main Logo ======-->
 
-                        <a class="main-logo" href="ndex.html">
+                        <a class="main-logo" href="index.html">
 
                             <img src="images/logo/logo-1.png" alt=""></a>
                         <!--====== End - Main Logo ======-->
@@ -1389,10 +1389,10 @@
                                 <ul class="breadcrumb__list">
                                     <li class="has-separator">
 
-                                        <a href="/user/home">Home</a></li>
+                                        <a href="index.html">Home</a></li>
                                     <li class="is-marked">
 
-                                        <a href="signup.html">Signup</a></li>
+                                        <a href="dash-address-add.html">My Account</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -1405,89 +1405,152 @@
             <!--====== Section 2 ======-->
             <div class="u-s-p-b-60">
 
-                <!--====== Section Intro ======-->
-                <div class="section__intro u-s-m-b-60">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <div class="section__text-wrap">
-                                    <h1 class="section__heading u-c-secondary">CREATE AN ACCOUNT</h1>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!--====== End - Section Intro ======-->
-
-
                 <!--====== Section Content ======-->
                 <div class="section__content">
-                    <div class="container">
-                        <div class="row row--center">
-                            <div class="col-lg-6 col-md-8 u-s-m-b-30">
-                                <div class="l-f-o">
-                                    <div class="l-f-o__pad-box">
-                                        <h1 class="gl-h1">PERSONAL INFORMATION</h1>
-                                        <form class="l-f-o__form" method="post" action="/user/signup">
-                                            <div class="gl-s-api">
-                                                <div class="u-s-m-b-15">
-                                                      
-                                                    <button class="gl-s-api__btn gl-s-api__btn--fb" type="button"><i class="fab fa-facebook-f"></i>
+                    <div class="dash">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-lg-3 col-md-12">
 
-                                                        <span>Signup with Facebook</span></button></div>
-                                                <div class="u-s-m-b-30">
+                                    <!--====== Dashboard Features ======-->
+                                    <div class="dash__box dash__box--bg-white dash__box--shadow u-s-m-b-30">
+                                        <div class="dash__pad-1">
 
-                                                    <button class="gl-s-api__btn gl-s-api__btn--gplus" type="button"><i class="fab fa-google"></i>
+                                            <span class="dash__text u-s-m-b-16">Hello, John Doe</span>
+                                            <ul class="dash__f-list">
+                                                <li>
 
-                                                        <span>Signup with Google</span></button></div>
-                                            </div>  
-                                            <div class="u-s-m-b-30">
-                                                
-                                                    <% if(error){ %>
-                                                        <p><%=error %></p>
-                                                    <% }%>  
-                                                <label class="gl-label" for="reg-fname">USER NAME *</label>
+                                                    <a href="dashboard.html">Manage My Account</a></li>
+                                                <li>
 
-                                                <input class="input-text input-text--primary-style" type="text" id="reg-fname" placeholder="USER NAME" name="name"></div>
-                                           
-                                            <div class="gl-inline">
-                                                <div class="u-s-m-b-30">
+                                                    <a href="dash-my-profile.html">My Profile</a></li>
+                                                <li>
 
-                                                    <label class="gl-label" for="reg-lname">PHONE NUMBER *</label>
-    
-                                                    <input class="input-text input-text--primary-style" type="number" id="reg-lname" placeholder="PHONE NUMBER" name="phone"></div>
-                                                
-                                            </div>
-                                            <div class="u-s-m-b-30">
+                                                    <a class="dash-active" href="dash-address-book.html">Address Book</a></li>
+                                                <li>
 
-                                                <label class="gl-label" for="reg-email">E-MAIL *</label>
+                                                    <a href="dash-track-order.html">Track Order</a></li>
+                                                <li>
 
-                                                <input class="input-text input-text--primary-style" type="text" id="reg-email" placeholder="Enter E-mail" name="email"></div>
-                                            <div class="u-s-m-b-30">
+                                                    <a href="dash-my-order.html">My Orders</a></li>
+                                                <li>
 
-                                                <label class="gl-label" for="reg-password">PASSWORD *</label>
+                                                    <a href="dash-payment-option.html">My Payment Options</a></li>
+                                                <li>
 
-                                                <input class="input-text input-text--primary-style" type="password" id="reg-password" placeholder="Enter Password" name="password"></div>
-                                                <div class="u-s-m-b-30">
+                                                    <a href="dash-cancellation.html">My Returns & Cancellations</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="dash__box dash__box--bg-white dash__box--shadow dash__box--w">
+                                        <div class="dash__pad-1">
+                                            <ul class="dash__w-list">
+                                                <li>
+                                                    <div class="dash__w-wrap">
 
-                                                    <label class="gl-label" for="reg-lname">CONFIRM PASSWORD *</label>
-    
-                                                    <input class="input-text input-text--primary-style" type="password" id="reg-lname" placeholder="Enter confirm password" name="confirmpassword"></div>
+                                                        <span class="dash__w-icon dash__w-icon-style-1"><i class="fas fa-cart-arrow-down"></i></span>
+
+                                                        <span class="dash__w-text">4</span>
+
+                                                        <span class="dash__w-name">Orders Placed</span></div>
+                                                </li>
+                                                <li>
+                                                    <div class="dash__w-wrap">
+
+                                                        <span class="dash__w-icon dash__w-icon-style-2"><i class="fas fa-times"></i></span>
+
+                                                        <span class="dash__w-text">0</span>
+
+                                                        <span class="dash__w-name">Cancel Orders</span></div>
+                                                </li>
+                                                <li>
+                                                    <div class="dash__w-wrap">
+
+                                                        <span class="dash__w-icon dash__w-icon-style-3"><i class="far fa-heart"></i></span>
+
+                                                        <span class="dash__w-text">0</span>
+
+                                                        <span class="dash__w-name">Wishlist</span></div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <!--====== End - Dashboard Features ======-->
+                                </div>
+                                <div class="col-lg-9 col-md-12">
+                                    <div class="dash__box dash__box--shadow dash__box--radius dash__box--bg-white">
+                                        <div class="dash__pad-2">
+                                            <h1 class="dash__h1 u-s-m-b-14">Add new Address</h1>
+
+                                            <span class="dash__text u-s-m-b-30">We need an address where we could deliver products.</span>
+                                            <form class="dash-address-manipulation" action="/addressAdd" method="post">
+                                                <div class="gl-inline">
                                                     <div class="u-s-m-b-30">
-                                                        <label class="gl-label" for="reg-lname">OTP VERIFICATION *</label>
-                                                        <select name="Verification" id="" class="input-text input-text--primary-style" onchange="toggleInput()">
-                                                            <option value="phoneNumber">phone number</option>
-                                                            <option value="email">Email</option>
-                                                            <!-- <option value="whatsapp">Whatsapp</option> -->
-                                                        </select>
-                                                        
-                                                    </div>
-                                            <div class="u-s-m-b-15">
-                                                
-                                                <button class="btn btn--e-transparent-brand-b-2" type="submit">CREATE</button></div>
 
-                                            <a class="gl-link" href="/user/login">LOGIN</a>
-                                        </form>
+                                                        <label class="gl-label" for="address-fname">FIRST NAME *</label>
+
+                                                        <input class="input-text input-text--primary-style" type="text" id="address-fname" placeholder="First Name" name="firstName"></div>
+                                                    <div class="u-s-m-b-30">
+
+                                                        <label class="gl-label" for="address-lname">LAST NAME *</label>
+
+                                                        <input class="input-text input-text--primary-style" type="text" id="address-lname" placeholder="Last Name" name="lastName"></div>
+                                                </div>
+                                                <div class="gl-inline">
+                                                    <div class="u-s-m-b-30">
+
+                                                        <label class="gl-label" for="address-phone">PHONE *</label>
+
+                                                        <input class="input-text input-text--primary-style" type="text" id="address-phone" name="phone"></div>
+                                                    <div class="u-s-m-b-30">
+
+                                                        <label class="gl-label" for="address-street">STREET ADDRESS *</label>
+
+                                                        <input class="input-text input-text--primary-style" type="text" id="address-street" placeholder="House Name and Street" name="streetAddress"></div>
+                                                </div>
+                                                <div class="gl-inline">
+                                                    <div class="u-s-m-b-30">
+
+                                                        <!--====== Select Box ======-->
+
+                                                        <label class="gl-label" for="address-country">COUNTRY *</label><select class="select-box select-box--primary-style" id="address-country" name="country">
+                                                            <option selected value="">Choose Country</option>
+                                                            <option value="India">India (IND)</option>
+                                                            <option value="uae">United Arab Emirate (UAE)</option>
+                                                            <option value="uk">United Kingdom (UK)</option>
+                                                            <option value="us">United States (US)</option>
+                                                        </select>
+                                                        <!--====== End - Select Box ======-->
+                                                    </div>
+                                                    <div class="u-s-m-b-30">
+
+                                                        <!--====== Select Box ======-->
+
+                                                        <label class="gl-label" for="address-state">STATE/PROVINCE *</label><select class="select-box select-box--primary-style" id="address-state" name="state">
+                                                            <option selected value="">Choose State/Province</option>
+                                                            <option value="Kerala">Kerala</option>
+                                                            <option value="al">Goa</option>
+                                                            <option value="ny">Delhi</option>
+                                                        </select>
+                                                        <!--====== End - Select Box ======-->
+                                                    </div>
+                                                </div>
+                                                <div class="gl-inline">
+                                                    <div class="u-s-m-b-30">
+
+                                                        <label class="gl-label" for="address-city">TOWN/CITY *</label>
+
+                                                        <input class="input-text input-text--primary-style" type="text" id="address-city" name="city"></div>
+                                                    <div class="u-s-m-b-30">
+
+                                                        <label class="gl-label" for="address-street">PIN CODE *</label>
+
+                                                        <input class="input-text input-text--primary-style" type="text" id="address-postal" placeholder="Zip/Postal Code" name="pinCode"></div>
+                                                </div>
+
+                                                <button class="btn btn--e-brand-b-2" type="submit">SAVE</button>
+                                            </form>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -1700,4 +1763,4 @@
         </div>
     </noscript>
 </body>
-</html>x
+</html>
