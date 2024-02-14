@@ -9,7 +9,8 @@
 }
 .layer1{
     display: flex;
-    background-color: rgb(206,206,206);
+    background-color:rgb(246,246,246);
+    border-bottom: 2px solid black;
     align-items: center;
 }
 .logo{
@@ -65,7 +66,7 @@
 .tabs ul {
     height: 100%;
     width: 100%;
-    background-color: antiquewhite;
+    background-color:rgb(246,246,246);
 }
 .tabs ul li{
     display: flex;
@@ -81,4 +82,9 @@
     width: 80%;
     height: 100%;
     background-color: bisque;
+}
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
 }

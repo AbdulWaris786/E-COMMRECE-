@@ -17,7 +17,6 @@ const fs =require("fs");
 module.exports={
     aCategoryGet:async(req,res)=>{
         const categorys =await categoryModel.find({})
-        console.log(categorys);
         res.render("admin/category",{categorys})
     },
     aCategoryPost:async(req,res)=>{
@@ -106,20 +105,29 @@ module.exports={
             res.status(500).send("server error")   
         }
     },
-    aCategoryDltGet:async(req,res)=>{
+    aCategoryDltGet : async (req, res) => {
         try {
-            const _id=req.params.id;
-            console.log(_id,"fdf");
-            const deleteCategory =await categoryModel.findByIdAndDelete(_id)
-            if(deleteCategory){
-                const oldImagePath = path.join(__dirname,'../public/uploads/category',deleteCategory.categoryImage)
-                fs.unlinkSync(oldImagePath)
-                res.status(200).redirect("/admin/category")
-            }else{
-                res.status(400).json({message:'Can not delete the coupon'}) 
+            const _id = req.params.id;
+            console.log(_id, "fdf");
+            const deleteCategory = await categoryModel.findByIdAndDelete(_id);
+            if (deleteCategory) {
+                const oldImagePath = path.join(__dirname, '../public/uploads/category', deleteCategory.categoryImage);
+                if (oldImagePath) {
+                    fs.unlinkSync(oldImagePath);
+                    // Send success response with status 200
+                    res.status(200).json({ message: 'Category deleted successfully' });
+                } else {
+                    // If the image path doesn't exist, still consider it as successful deletion
+                    res.status(200).json({ message: 'Category deleted successfully' });
+                }
+            } else {
+                // If the category couldn't be found or deleted, respond with status 404
+                res.status(404).json({ message: 'Category not found or already deleted' });
             }
         } catch (error) {
-            console.log(error);
+            console.error(error);
+            // If an error occurs during deletion, respond with status 500
+            res.status(500).json({ message: 'Internal server error' });
         }
-    },
+    }
 }

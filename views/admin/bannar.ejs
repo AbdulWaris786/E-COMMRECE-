@@ -6,6 +6,7 @@
     <title>BANNERS</title>
     <link rel="stylesheet" href="/style/adminPages1.css">
     <link rel="stylesheet" href="/style/adminPages2.css">
+    <script src="https://kit.fontawesome.com/a550a1676b.js" crossorigin="anonymous"></script>
 </head>
 <body>
     <div class="continer">
@@ -45,33 +46,28 @@
 
                             <thead>
                                 <tr>
-                                    <th>Sl.No</th>
-                                    <th>Banner ID</th>
+                                    <th>Image</th>
                                     <th>Banner Name</th>                                     
                                     <th>Amount</th>
                                     <th>Starting Date</th>
                                     <th>Ending Date</th>
-                                    <th>Edit</th>
                                     <th>Delete</th>                                                                                                                   
                                 </tr>
                             </thead>
+                            <%  banner.forEach(data=>{%>
                             <tbody>
                                 <tr>
-                                    <td>1</td>
-                                    <td>56KSVZZZZZ6788666</td>
-                                    <td>AXGY5677554765</td>
-                                    <td>1000</td>                                                                               
-                                    <td>02/01/2023</td>
-                                    <td>02/01/2024</td>
+                                    <td><img src="/uploads/banner/<%=data.bannerImage%>" alt="" width="100px"></td>
+                                    <td><%=data.bannerProduct%></td>
+                                    <td><%=data.specialPrice%></td>                                                                               
+                                    <td><%=data.startingDate%></td>
+                                    <td><%=data.endingDate%></td>
                                     <td>
-                                        <i class="bi bi-pencil-square"></i>
-                                    </td>
-                                    <td>
-                                        <i class="bi bi-trash-fill"></i>
+                                        <i class="fa-solid fa-trash"></i>
                                     </td>
                                 </tr>
                             </tbody>
-    
+                            <%})%>
                         </table>
                     </div>
                 </div>

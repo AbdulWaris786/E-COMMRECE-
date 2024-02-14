@@ -1,6 +1,7 @@
 const adminSignupModal = require("../models/adminSignupSchema");
 const userSignupModel=require("../models/userSignupSchema")
 const userAddressModel =require("../models/userAddressSchema")
+const bannerModel =require("../models/addBannerSchema")
 const bcrypt =require("bcrypt");
 const flash = require("connect-flash");
 const categoryModel = require("../models/addCategorySchema")
@@ -33,9 +34,7 @@ module.exports={
     aOrderGet:(req,res)=>{
         res.render("admin/orders")
     },
-    aBannerGet:(req,res)=>{
-        res.render("admin/bannar")
-    },
+    
     addProductGet:(req,res)=>{
         res.render("admin/addProducts")
     },
@@ -43,13 +42,10 @@ module.exports={
     addCouponGet:(req,res)=>{
         res.render("admin/addCoupon")
     },
-    addBannerGet:(req,res)=>{
-        res.render("admin/addBannar")
-    },
+    
     aUserDetailsGet:async(req,res)=>{
         const obj=req.params.id
         const address =await userAddressModel.findOne({obj})
-        console.log(address);
         res.render("admin/userDetails",{address})
     },
     
@@ -62,35 +58,26 @@ module.exports={
             console.log(error);
         }
     },
-    
-   
-    
-    aUsersPost:(res,req)=>{
-
+    aBannerGet:async(req,res)=>{
+        const banner = await bannerModel.find({})
+        res.render("admin/bannar",{banner})
     },
-    aProductPost:(req,res)=>{
-
+    addBannerGet:async(req,res)=>{
+        res.render("admin/addBannar")
     },
-    
-    
-    aCouponPost:(req,res)=>{
-
-    },
-    aOrderPost:(req,res)=>{
-
-    },
-    aBannerPost:(req,res)=>{
-
-    },
-    addProductPost:(req,res)=>{
-
-    },
-    
-    addCouponPost:(req,res)=>{
-
-    },
-    addBannerPost:(req,res)=>{
-
+    addBannerPost:async(req,res)=>{
+        try {
+            const {bannerProduct,bannerHeading,specialPrice,startingDate,endingDate}=req.body
+            const bannerImage=req.file?.filename
+            const newBanner = new bannerModel({
+                bannerImage,
+                bannerProduct,bannerHeading,
+                specialPrice,startingDate,endingDate
+            })
+            await newBanner.save()
+            res.redirect("/admin/banner")
+        } catch (error) {
+            
+        }
     }
-    
 }

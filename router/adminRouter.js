@@ -3,7 +3,7 @@ const router = express.Router()
 const {setUploadType,upload} =require("../middleware/multer")
 const authController =require("../controller/authController")
 const categoryController =require("../controller/categoryController")
-
+const adminController =require("../controller/adminController")
 const {
     
     aHomePage,
@@ -14,7 +14,6 @@ const {
     aBannerGet,aBannerPost,
     addProductGet,addProductPost,
     addCouponGet,addCouponPost,
-    addBannerGet,addBannerPost,
     aUserDltGet,
     aUserDetailsGet
 
@@ -37,9 +36,13 @@ router.post("/admin/addCateory",categoryController.addCategoryPost)
 router.get("/admin/editCategory/:id",categoryController.aCategoryEditGet)
 router.post("/admin/editcategory/:id",setUploadType("category"),upload.single("categoryImage"),categoryController.aCategoryEditPost)
 
-router.get("/admin/categorydlt/:id",categoryController.aCategoryDltGet)
+router.delete("/admin/categorydlt/:id",categoryController.aCategoryDltGet)
 
-
+//admin conroller 
+router.get("/admin/banner",adminController.aBannerGet)
+router.get("/admin/addBanner",adminController.addBannerGet)
+// router.post("/admin/banner",adminController.aBannerPost)
+router.post("/admin/addBanner",setUploadType("banner"),upload.single("bannerImage"),adminController.addBannerPost)
 
 router.get("/admin/home",aHomePage) 
 .get("/admin/users",aUsersGet)
@@ -47,21 +50,13 @@ router.get("/admin/home",aHomePage)
 .get("/admin/product",aProductGet)
 .get("/admin/coupons",aCouponGet)
 .get("/admin/orders",aOrderGet)
-.get("/admin/banner",aBannerGet)
+
 .get("/admin/addProduct",addProductGet)
 .get("/admin/addCoupon",addCouponGet)
-.get("/admin/addBanner",addBannerGet)
+
 .get("/admin/userAddress/:id",aUserDetailsGet)
 
 
-
-.post("/admin/product",aProductPost)
-.post("/admin/coupons",aCouponPost)
-.post("/admin/orders",aOrderPost)
-.post("/admin/banner",aBannerPost)
-.post("/admin/addProduct",addProductPost)
-.post("/admin/addCoupon",addCouponPost)
-.post("/admin/addBanner",addBannerPost)
 
 
 

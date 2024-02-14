@@ -34,7 +34,7 @@
             </div>
             <div class="content_part">
 
-                <form action="" method="post">
+                <form action="/admin/addBanner" method="post" enctype="multipart/form-data">
                     <div class="frame">
                         <div class="banner_gap_div">
                             <div class="banner_div">
@@ -46,7 +46,7 @@
                                         </div>
                                        <div class="banner_image_buttn">
                                            Choose Image
-                                        <input type="file" id="productImage" name="productImage">
+                                        <input type="file" id="productImage" name="bannerImage">
                                        </div>
                                     </div>
                                 </div>
@@ -59,21 +59,17 @@
                                     <div class="form-group">
                                         <label for="bannerHeading">Banner Heading</label>
                                         <input type="text" id="bannerHeading" name="bannerHeading" placeholder="Enter banner heading name">
-                                    </div>
+                                    </div>    
                                     <div class="form-group">
-                                        <label for="bannerDescription">Banner Description</label>
-                                        <input type="text" id="bannerDescription" name="bannerDescription" placeholder="Enter banner description">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="buttonLink">Button Link</label>
-                                        <input type="text" id="buttonLink" name="buttonLink" placeholder="Enter button link">
-                                    </div>
+                                        <label for="bannerHeading">Special Price</label>
+                                        <input type="number" id="bannerHeading" name="specialPrice" placeholder="Enter banner price">
+                                    </div> 
                                     <div class="form-group">
                                         <label for="startingDate">Starting Date</label>
                                         <input type="date" id="startingDate" name="startingDate">
                                     </div>
                                     <div class="form-group">
-                                        <label for="endingDate">Starting Date</label>
+                                        <label for="endingDate">Ending Date</label>
                                         <input type="date" id="endingDate" name="endingDate">
                                     </div>
                                     <div class="form-group">
