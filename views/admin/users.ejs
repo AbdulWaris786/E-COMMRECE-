@@ -31,6 +31,7 @@
                     <li onclick="window.location.href='/admin/coupons'">COUPONS</li>
                     <li onclick="window.location.href='/admin/orders'">ORDERS</li>
                     <li onclick="window.location.href='/admin/banner'">BANNERS</li>
+                    <li onclick="window.location.href='/admin/blockedUsers'">BLOCKED USERS</li>
                 </ul>
             </div>
             <div class="content_part">
@@ -61,7 +62,7 @@
                                 <td><%=data.phone%></td>
                                 <td>0</td>
                                 <td style="text-align: center;"><a href="/admin/userAddress/<%=data._id%>"><i class="fa-solid fa-circle-info"></i></a></td>
-                                <td style="text-align: center;"> <a href="/admin/user/<%=data._id%>"><i class="fa-solid fa-trash"></i></a> </td>
+                                <td style="text-align: center;"> <a href="/admin/user/<%=data._id%>"><i class="fa-solid fa-lock"></i></i></a> </td>
                             </tr>
                             <%})%>
                            </tbody>

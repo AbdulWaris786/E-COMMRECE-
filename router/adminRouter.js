@@ -8,12 +8,12 @@ const {
     
     aHomePage,
     aUsersGet,
-    aProductGet,aProductPost,
-    aCouponGet,aCouponPost,
-    aOrderGet,aOrderPost,
-    aBannerGet,aBannerPost,
-    addProductGet,addProductPost,
-    addCouponGet,addCouponPost,
+    aProductGet,
+    aCouponGet,
+    aOrderGet,
+    aBannerGet,
+    addProductGet,
+    addCouponGet,
     aUserDltGet,
     aUserDetailsGet
 
@@ -38,23 +38,25 @@ router.post("/admin/editcategory/:id",setUploadType("category"),upload.single("c
 
 router.delete("/admin/categorydlt/:id",categoryController.aCategoryDltGet)
 
-//admin conroller 
+//admin controller==banner
 router.get("/admin/banner",adminController.aBannerGet)
 router.get("/admin/addBanner",adminController.addBannerGet)
-// router.post("/admin/banner",adminController.aBannerPost)
 router.post("/admin/addBanner",setUploadType("banner"),upload.single("bannerImage"),adminController.addBannerPost)
 router.delete("/admin/bannerDlt/:id",adminController.bannerDlt)
+
+//admin controller == coupon
+router.get("/admin/coupons",adminController.couponGet)
+router.get("/admin/addCoupon",adminController.addCouponGet)
+router.post("/admin/addCoupon",adminController.addCouponPost)
+router.delete("/admin/couponDlt/:id",adminController.couponDlt)
+
 
 router.get("/admin/home",aHomePage) 
 .get("/admin/users",aUsersGet)
 .get("/admin/user/:id",aUserDltGet)
 .get("/admin/product",aProductGet)
-.get("/admin/coupons",aCouponGet)
 .get("/admin/orders",aOrderGet)
-
 .get("/admin/addProduct",addProductGet)
-.get("/admin/addCoupon",addCouponGet)
-
 .get("/admin/userAddress/:id",aUserDetailsGet)
 
 

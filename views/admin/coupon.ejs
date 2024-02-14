@@ -6,6 +6,9 @@
     <title>COUPONS</title>
     <link rel="stylesheet" href="/style/adminPages1.css">
     <link rel="stylesheet" href="/style/adminPages2.css">
+    <script src="https://kit.fontawesome.com/a550a1676b.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 <body>
     <div class="continer">
@@ -30,6 +33,7 @@
                     <li onclick="window.location.href='/admin/coupons'">COUPONS</li>
                     <li onclick="window.location.href='/admin/orders'">ORDERS</li>
                     <li onclick="window.location.href='/admin/banner'">BANNERS</li>
+                    <li onclick="window.location.href='/admin/blockedUsers'">BLOCKED USERS</li>
                 </ul>
             </div>
             <div class="content_part">
@@ -45,35 +49,29 @@
 
                             <thead>
                                 <tr>
-                                    <th>Sl.No</th>
-                                    <th>Coupon ID</th>
                                     <th>Coupon Name</th>
-                                    <th>Coupon Discount</th>
-                                    <th>Minimum Amount</th>
-                                    <th>Maximum Amount</th>                                                                              
+                                    <th>Coupon Code</th>
+                                    <th>Discount %</th>
+                                    <th>Purchase Above</th>                                                                             
                                     <th>Starting Date</th>
                                     <th>Ending Date</th>
-                                    <th>Edit</th>
                                     <th>Delete</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>56KSVZZZZZ6788666</td>
-                                    <td>AXGY5677554765</td>
-                                    <td>20%</td>
-                                    <td>1000</td>
-                                    <td>5000</td>
-                                    <td>02/01/2023</td>
-                                    <td>02/01/2024</td>
+                                <% coupon.forEach(data=>{%>
+                                <tr id="couponRow_<%=data._id%>">
+                                    <td><%=data.couponName%></td>
+                                    <td><%=data.couponCode%></td>
+                                    <td><%=data.discount%></td>
+                                    <td><%=data.purchaceAbove%></td>
+                                    <td><%=data.startingDate%></td>
+                                    <td><%=data.endingDate%></td>
                                     <td>
-                                        <i class="bi bi-pencil-square"></i>
-                                    </td>
-                                    <td>
-                                        <i class="bi bi-trash-fill"></i>
+                                        <a href="#" onclick="deleteCoupon('<%=data._id%>')"><i class="fa-solid fa-trash"></i></a>
                                     </td>
                                 </tr>
+                                <%})%>
                             </tbody>
     
                         </table>
@@ -84,5 +82,54 @@
             </div>
         </div>
     </div>
+    <script>
+        function deleteCoupon(couponId){
+            Swal.fire({
+            title: "Are you sure?",
+            text: "Once deleted, you will not be able to recover this coupon!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Send delete request using Axios
+                axios.delete(`/admin/coupondlt/${couponId}`)
+                    .then(response => {
+                        // Check if deletion was successful
+                        if (response.status === 200) {
+                            // If successful, remove the category row from the UI
+                            const rowToRemove = document.getElementById(`couponRow_${couponId}`);
+                            if (rowToRemove) {
+                                rowToRemove.remove();
+                            }
+                            // Show success message using SweetAlert
+                            Swal.fire({
+                                title: "Deleted!",
+                                text: "coupon deleted successfully.",
+                                icon: "success"
+                            });
+                        } else {
+                            // If deletion failed, show error message using SweetAlert
+                            Swal.fire({
+                                title: "Error!",
+                                text: "Failed to delete coupon. Please try again later.",
+                                icon: "error"
+                            });
+                        }
+                    })
+                    .catch(error => {
+                        // If an error occurred during the request, show error message using SweetAlert
+                        Swal.fire({
+                            title: "Error!",
+                            text: "An error occurred while processing your request. Please try again later.",
+                            icon: "error"
+                        });
+                    });
+            }
+        });
+        }
+    </script>
 </body>
 </html>

@@ -2,6 +2,7 @@ const adminSignupModal = require("../models/adminSignupSchema");
 const userSignupModel=require("../models/userSignupSchema")
 const userAddressModel =require("../models/userAddressSchema")
 const bannerModel =require("../models/addBannerSchema")
+const couponModel =require("../models/addCouponSchema")
 const bcrypt =require("bcrypt");
 const flash = require("connect-flash");
 const categoryModel = require("../models/addCategorySchema")
@@ -27,10 +28,6 @@ module.exports={
     aProductGet:(req,res)=>{
         res.render("admin/adminProducts")
     },
-    
-    aCouponGet:(req,res)=>{
-        res.render("admin/coupon")
-    },
     aOrderGet:(req,res)=>{
         res.render("admin/orders")
     },
@@ -39,9 +36,7 @@ module.exports={
         res.render("admin/addProducts")
     },
     
-    addCouponGet:(req,res)=>{
-        res.render("admin/addCoupon")
-    },
+   
     
     aUserDetailsGet:async(req,res)=>{
         const obj=req.params.id
@@ -77,7 +72,7 @@ module.exports={
             await newBanner.save()
             res.redirect("/admin/banner")
         } catch (error) {
-            
+            console.error(error);
         }
     },
     bannerDlt:async(req,res)=>{
@@ -91,8 +86,44 @@ module.exports={
                     fs.unlinkSync(oldImagePath)
                     res.status(200).json({ message: 'banner deleted successfully' })
                 }else{
-                    res.status(200).json({ message: 'Category deleted successfully' });
+                    res.status(200).json({ message: 'banner deleted successfully' });
                 }
+            }else{
+                res.status(404).json({ message: 'Category not found or already deleted' });
+            }
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({ message: 'Internal server error' });
+        }
+    },
+    couponGet:async(req,res)=>{
+        const coupon = await couponModel.find({})
+        res.render("admin/coupon",{coupon})
+    },
+    addCouponGet:(req,res)=>{
+        res.render("admin/addCoupon")
+    },
+    addCouponPost:async(req,res)=>{
+        try {
+            const {couponName,couponCode,discount,purchaceAbove,startingDate,endingDate}=req.body
+            const newCoupon =new couponModel({
+                couponName,couponCode,
+                discount,purchaceAbove,
+                startingDate,endingDate
+            })
+            await newCoupon.save()
+            res.redirect("/admin/coupons")
+        } catch (error) {
+            console.error(error);
+        }
+
+    },
+    couponDlt:async(req,res)=>{
+        try {
+            const _id =req.params.id
+            const deleteCoupon = await couponModel.findByIdAndDelete(_id)
+            if(deleteCoupon){
+                res.status(200).json({ message: 'banner deleted successfully' });
             }else{
                 res.status(404).json({ message: 'Category not found or already deleted' });
             }
