@@ -79,5 +79,26 @@ module.exports={
         } catch (error) {
             
         }
+    },
+    bannerDlt:async(req,res)=>{
+        try {
+            const _id =req.params.id;
+            
+            const deleteBanner =await bannerModel.findByIdAndDelete(_id)
+            if(deleteBanner){
+                const oldImagePath =path.join(__dirname, '../public/uploads/banner',deleteBanner.bannerImage);
+                if(oldImagePath){
+                    fs.unlinkSync(oldImagePath)
+                    res.status(200).json({ message: 'banner deleted successfully' })
+                }else{
+                    res.status(200).json({ message: 'Category deleted successfully' });
+                }
+            }else{
+                res.status(404).json({ message: 'Category not found or already deleted' });
+            }
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({ message: 'Internal server error' });
+        }
     }
 }

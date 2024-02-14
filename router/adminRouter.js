@@ -43,6 +43,7 @@ router.get("/admin/banner",adminController.aBannerGet)
 router.get("/admin/addBanner",adminController.addBannerGet)
 // router.post("/admin/banner",adminController.aBannerPost)
 router.post("/admin/addBanner",setUploadType("banner"),upload.single("bannerImage"),adminController.addBannerPost)
+router.delete("/admin/bannerDlt/:id",adminController.bannerDlt)
 
 router.get("/admin/home",aHomePage) 
 .get("/admin/users",aUsersGet)
