@@ -91,7 +91,7 @@
                 if (result.isConfirmed) {
                     // Send delete request using Axios
                     console.log(userId);
-                    axios.delete(`/admin/user/${userId}`)
+                    axios.patch(`/admin/user/${userId}`)
                     .then(response => {
                         // Check if deletion was successful
                         if (response.status === 200) {

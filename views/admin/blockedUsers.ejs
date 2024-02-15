@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>COUPONS</title>
+    <title>BLOCKED USERS</title>
     <link rel="stylesheet" href="/style/adminPages1.css">
     <link rel="stylesheet" href="/style/adminPages2.css">
     <script src="https://kit.fontawesome.com/a550a1676b.js" crossorigin="anonymous"></script>
@@ -39,8 +39,8 @@
             <div class="content_part">
 
                 <div class="products_list_head">
-                    <p style="font-size: x-large; padding-left: 1.5rem;">Coupons</p>
-                    <button class="add_product_btn_admin"><a href="/admin/addCoupon" style="color: white;">Add Coupon</a></button>
+                    <p style="font-size: x-large; padding-left: 1.5rem;">BLOCKED USERS </p>
+                   
                 </div>
 
                 <div class="product_list">
@@ -66,7 +66,7 @@
                                         <a href="#" onclick="unblockUser('<%=data._id%>')"><i class="fa-solid fa-unlock"></i></a>
                                     </td>
                                     <td style="text-align: center;">
-                                        <i class="fa-solid fa-trash"></i>
+                                        <a href="#" onclick="deleteUser('<%=data._id%>')"><i class="fa-solid fa-trash"></i></a>
                                     </td>
                                 </tr>
                                 <%})%>
@@ -114,6 +114,55 @@
                             Swal.fire({
                                 title: "Error!",
                                 text: "Failed to unblock user. Please try again later.",
+                                icon: "error"
+                            });
+                        }
+                    })
+                    .catch(error => {
+                        // If an error occurred during the request, show error message using SweetAlert
+                        
+                        Swal.fire({
+                            title: "Error!",
+                            text: "An error occurred while processing your request. Please try again later.",
+                            icon: "error"
+                        });
+                    });
+            }
+        });
+        }
+        function deleteUser(userId){
+            Swal.fire({
+                title: "Are you sure?",
+                text: "the dosn't login this email ",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, Delete it!"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Send delete request using Axios
+                    console.log(userId);
+                    axios.delete(`/admin/userDelete/${userId}`)
+                    .then(response => {
+                        // Check if deletion was successful
+                        if (response.status === 200) {
+                            // If successful, remove the category row from the UI
+                            const rowToRemove = document.getElementById(`userRow_${userId}`);
+                            if (rowToRemove) {
+                                rowToRemove.remove();
+                            }
+                            // Show success message using SweetAlert
+                            Swal.fire({
+                                title: "Deleted!",
+                                text: "User deleted  successfully.",
+                                icon: "success"
+                            });
+                        } else {
+                            // If deletion failed, show error message using SweetAlert
+                            Swal.fire({
+                                title: "Error!",
+                                text: "Failed to delete user. Please try again later.",
                                 icon: "error"
                             });
                         }

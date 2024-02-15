@@ -40,7 +40,7 @@ module.exports={
         const address =await userAddressModel.findOne({obj})
         res.render("admin/userDetails",{address})
     },
-    UserDltGet:async(req,res)=>{
+    blockGet:async(req,res)=>{
         try {
             const _id=req.params.id;
             console.log(_id);
@@ -78,6 +78,20 @@ module.exports={
                 res.status(404).json({ message: 'Category not found or already deleted' });
                 console.log("oon unblock ayyit illa");
                 res.redirect("/admin/users")
+        }
+    },
+    userdlt:async(req,res)=>{
+        try {
+            const _id =req.params.id
+            const deleteUser =await userSignupModel.findByIdAndDelete(_id)
+            if(deleteUser){
+                res.status(200).json({ message: 'banner deleted successfully' });
+            }else{
+                res.status(404).json({ message: 'Category not found or already deleted' });
+            }
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({ message: 'Internal server error' });
         }
     },
     aBannerGet:async(req,res)=>{

@@ -46,10 +46,12 @@ router.delete("/admin/couponDlt/:id",adminController.couponDlt)
 
 //admin controller ==user 
 router.get("/admin/users",adminController.UsersGet)
-router.delete("/admin/user/:id",adminController.UserDltGet)
+router.patch("/admin/user/:id",adminController.blockGet)
 router.get("/admin/userAddress/:id",adminController.UserDetailsGet)
 router.get("/admin/blockedUsers",adminController.blockedUser)
 router.patch("/admin/blockedUsers/:id",adminController.unblockUser)
+router.delete("/admin/userDelete/:id",adminController.userdlt)
+
 
 router.get("/admin/home",aHomePage) 
 
