@@ -35,15 +35,11 @@ module.exports={
     addProductGet:(req,res)=>{
         res.render("admin/addProducts")
     },
-    
-   
-    
     UserDetailsGet:async(req,res)=>{
         const obj=req.params.id
         const address =await userAddressModel.findOne({obj})
         res.render("admin/userDetails",{address})
     },
-    
     UserDltGet:async(req,res)=>{
         try {
             const _id=req.params.id;
@@ -67,6 +63,22 @@ module.exports={
     blockedUser:async(req,res)=>{
         const users =await userSignupModel.find({block:true})
         res.render("admin/blockedUsers",{users})
+    },
+    unblockUser:async(req,res)=>{
+        try {
+            const _id =req.params.id
+            if(_id){
+                const users = await userSignupModel.findByIdAndUpdate(
+                    {_id},
+                    {$set:{block:false}}
+                )
+                res.status(200).json({ message: 'User Unblocked successfully' })
+            }
+        } catch (error) {
+                res.status(404).json({ message: 'Category not found or already deleted' });
+                console.log("oon unblock ayyit illa");
+                res.redirect("/admin/users")
+        }
     },
     aBannerGet:async(req,res)=>{
         const banner = await bannerModel.find({})

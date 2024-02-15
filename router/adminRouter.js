@@ -49,7 +49,7 @@ router.get("/admin/users",adminController.UsersGet)
 router.delete("/admin/user/:id",adminController.UserDltGet)
 router.get("/admin/userAddress/:id",adminController.UserDetailsGet)
 router.get("/admin/blockedUsers",adminController.blockedUser)
-
+router.patch("/admin/blockedUsers/:id",adminController.unblockUser)
 
 router.get("/admin/home",aHomePage) 
 

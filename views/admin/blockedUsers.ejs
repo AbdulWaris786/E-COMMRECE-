@@ -7,6 +7,8 @@
     <link rel="stylesheet" href="/style/adminPages1.css">
     <link rel="stylesheet" href="/style/adminPages2.css">
     <script src="https://kit.fontawesome.com/a550a1676b.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 <body>
     <div class="continer">
@@ -51,16 +53,20 @@
                                     <th>Email</th>
                                     <th>Phone</th>
                                     <th>Action</th>
+                                    <th>Delete</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <% users.forEach(data=>{%>
-                                <tr>
+                                <tr id="userRow_<%=data._id%>">
                                     <td><%=data.name%></td>
                                     <td><%=data.email%></td>
                                     <td><%=data.phone%></td>
-                                    <td>
-                                        <i class="fa-solid fa-unlock"></i>
+                                    <td style="text-align: center;">
+                                        <a href="#" onclick="unblockUser('<%=data._id%>')"><i class="fa-solid fa-unlock"></i></a>
+                                    </td>
+                                    <td style="text-align: center;">
+                                        <i class="fa-solid fa-trash"></i>
                                     </td>
                                 </tr>
                                 <%})%>
@@ -74,5 +80,56 @@
             </div>
         </div>
     </div>
+    <script>
+        function unblockUser(userId) {
+            Swal.fire({
+                title: "Are you sure?",
+                text: "they  show the main page",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, unblock it!"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Send delete request using Axios
+                    console.log(userId);
+                    axios.patch(`/admin/blockedUsers/${userId}`)
+                    .then(response => {
+                        // Check if deletion was successful
+                        if (response.status === 200) {
+                            // If successful, remove the category row from the UI
+                            const rowToRemove = document.getElementById(`userRow_${userId}`);
+                            if (rowToRemove) {
+                                rowToRemove.remove();
+                            }
+                            // Show success message using SweetAlert
+                            Swal.fire({
+                                title: "Unblocked!",
+                                text: "User Unblocked successfully.",
+                                icon: "success"
+                            });
+                        } else {
+                            // If deletion failed, show error message using SweetAlert
+                            Swal.fire({
+                                title: "Error!",
+                                text: "Failed to unblock user. Please try again later.",
+                                icon: "error"
+                            });
+                        }
+                    })
+                    .catch(error => {
+                        // If an error occurred during the request, show error message using SweetAlert
+                        
+                        Swal.fire({
+                            title: "Error!",
+                            text: "An error occurred while processing your request. Please try again later.",
+                            icon: "error"
+                        });
+                    });
+            }
+        });
+        }
+    </script>
 </body>
 </html>
