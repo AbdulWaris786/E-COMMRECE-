@@ -21,8 +21,8 @@ module.exports={
     aHomePage:(req,res)=>{
         res.render("admin/dashboard")
     },
-    aUsersGet:async(req,res)=>{
-        const users =await userSignupModel.find({})
+    UsersGet:async(req,res)=>{
+        const users =await userSignupModel.find({block:false})
         res.render("admin/users",{users})
     },
     aProductGet:(req,res)=>{
@@ -38,20 +38,35 @@ module.exports={
     
    
     
-    aUserDetailsGet:async(req,res)=>{
+    UserDetailsGet:async(req,res)=>{
         const obj=req.params.id
         const address =await userAddressModel.findOne({obj})
         res.render("admin/userDetails",{address})
     },
     
-    aUserDltGet:async(req,res)=>{
+    UserDltGet:async(req,res)=>{
         try {
             const _id=req.params.id;
-            await userSignupModel.deleteOne({_id})
-            res.status(200).redirect("/admin/users")
+            console.log(_id);
+            if(_id){
+                const users =await userSignupModel.findByIdAndUpdate(
+                    {_id},
+                    {$set:{block:true}}
+                )
+                res.status(200).json({ message: 'User Blocked successfully' })
+            }else{
+                res.status(404).json({ message: 'Category not found or already deleted' });
+                console.log("oon block ayyit illa");
+                res.redirect("/admin/users")
+            }
+            
         } catch (error) {
             console.log(error);
         }
+    },
+    blockedUser:async(req,res)=>{
+        const users =await userSignupModel.find({block:true})
+        res.render("admin/blockedUsers",{users})
     },
     aBannerGet:async(req,res)=>{
         const banner = await bannerModel.find({})

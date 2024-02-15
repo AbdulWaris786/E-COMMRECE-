@@ -54,14 +54,16 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                <% users.forEach(data=>{%>
                                 <tr>
-                                    <th>Username</th>
-                                    <th>Email</th>
-                                    <th>Phone</th>
+                                    <td><%=data.name%></td>
+                                    <td><%=data.email%></td>
+                                    <td><%=data.phone%></td>
                                     <td>
                                         <i class="fa-solid fa-unlock"></i>
                                     </td>
                                 </tr>
+                                <%})%>
                             </tbody>
     
                         </table>

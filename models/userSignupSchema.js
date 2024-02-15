@@ -22,7 +22,9 @@ const schema ={
     },
     Verification:{
         type:String,
-        
+    },
+    block:{
+        type:String
     }
 }
 

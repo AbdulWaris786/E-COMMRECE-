@@ -7,15 +7,9 @@ const adminController =require("../controller/adminController")
 const {
     
     aHomePage,
-    aUsersGet,
     aProductGet,
-    aCouponGet,
     aOrderGet,
-    aBannerGet,
     addProductGet,
-    addCouponGet,
-    aUserDltGet,
-    aUserDetailsGet
 
 }= require("../controller/adminController")
 
@@ -50,14 +44,20 @@ router.get("/admin/addCoupon",adminController.addCouponGet)
 router.post("/admin/addCoupon",adminController.addCouponPost)
 router.delete("/admin/couponDlt/:id",adminController.couponDlt)
 
+//admin controller ==user 
+router.get("/admin/users",adminController.UsersGet)
+router.delete("/admin/user/:id",adminController.UserDltGet)
+router.get("/admin/userAddress/:id",adminController.UserDetailsGet)
+router.get("/admin/blockedUsers",adminController.blockedUser)
+
 
 router.get("/admin/home",aHomePage) 
-.get("/admin/users",aUsersGet)
-.get("/admin/user/:id",aUserDltGet)
+
+
 .get("/admin/product",aProductGet)
 .get("/admin/orders",aOrderGet)
 .get("/admin/addProduct",addProductGet)
-.get("/admin/userAddress/:id",aUserDetailsGet)
+
 
 
 

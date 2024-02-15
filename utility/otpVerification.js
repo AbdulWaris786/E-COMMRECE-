@@ -13,7 +13,7 @@ const mailOtp =require("../middleware/otpverify")
 module.exports={
     otpGet:(req,res)=>{
         const otpData = req.flash("otpData")[0];
-        res.render("userEjsPages/otp",{otpData})
+        res.render("user/otp",{otpData})
     },otpPost:async(req,res)=>{
         const {phone,email,whatsapp,Verification}=req.body
         const twiloVerification =Verification
@@ -55,7 +55,7 @@ module.exports={
             const detailsOtp ={email:email,phone:phone,Verification:Verification}
             console.log(detailsOtp);
             req.flash("otpDetails",detailsOtp)
-            res.redirect('/user/otpRecive')
+            res.redirect('/otpRecive')
 
         } catch (err) {
             console.error('Error sending verification code:', err);
@@ -66,8 +66,9 @@ module.exports={
     },
     otpReciveGet:(req,res)=>{
         // const otpDetails = req.flash("otpDetails")[0];
-        res.render("userEjsPages/otpRecive",{otpDetails:req.flash("otpDetails")[0]})
-    },otpRecivePost:async(req,res)=>{
+        res.render("user/otpRecive",{otpDetails:req.flash("otpDetails")[0]})
+    },
+    otpRecivePost:async(req,res)=>{
         const {otp,email,Verification,phone}=req.body
         const mailerVerification = Verification
          try {
@@ -79,10 +80,10 @@ module.exports={
                         {email},
                         {$set:{verify:true}}
                     )
-                    res.redirect("/user/login")
+                    res.redirect("/login")
                 }else{
                     console.log("nookkii irunnooo ippoo verum tto");
-                    res.redirect("/user/signup")
+                    res.redirect("/signup")
                 }
             }
          } catch (error) {

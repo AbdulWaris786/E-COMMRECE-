@@ -66,7 +66,8 @@ module.exports={
                 name,phone,email,
                 password:bcryptPassword,
                 verify:"false",
-                Verification
+                Verification,
+                block:"false"   
             })
 
             //server side validation
