@@ -25,16 +25,12 @@ module.exports={
         const users =await userSignupModel.find({block:false})
         res.render("admin/users",{users})
     },
-    aProductGet:(req,res)=>{
-        res.render("admin/adminProducts")
-    },
+    
     aOrderGet:(req,res)=>{
         res.render("admin/orders")
     },
     
-    addProductGet:(req,res)=>{
-        res.render("admin/addProducts")
-    },
+    
     UserDetailsGet:async(req,res)=>{
         const obj=req.params.id
         const address =await userAddressModel.findOne({obj})
@@ -130,7 +126,7 @@ module.exports={
                     res.status(200).json({ message: 'banner deleted successfully' });
                 }
             }else{
-                res.status(404).json({ message: 'Category not found or already deleted' });
+                res.status(404).json({ message: 'banner not found or already deleted' });
             }
         } catch (error) {
             console.error(error);

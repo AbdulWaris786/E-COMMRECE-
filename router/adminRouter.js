@@ -4,12 +4,11 @@ const {setUploadType,upload} =require("../middleware/multer")
 const authController =require("../controller/authController")
 const categoryController =require("../controller/categoryController")
 const adminController =require("../controller/adminController")
+const productController =require("../controller/productController")
 const {
     
     aHomePage,
-    aProductGet,
     aOrderGet,
-    addProductGet,
 
 }= require("../controller/adminController")
 
@@ -52,13 +51,22 @@ router.get("/admin/blockedUsers",adminController.blockedUser)
 router.patch("/admin/blockedUsers/:id",adminController.unblockUser)
 router.delete("/admin/userDelete/:id",adminController.userdlt)
 
+//product controller
+router.get("/admin/product",productController.ProductGet)
+router.get("/admin/addProduct",productController.addProductGet)
+router.post("/admin/addProduct",setUploadType("products"),upload.array("productImage",10),productController.addproductPost)
+router.delete("/admin/productDlt/:id",productController.productDelete)
+
+
+
+
 
 router.get("/admin/home",aHomePage) 
 
 
-.get("/admin/product",aProductGet)
+
 .get("/admin/orders",aOrderGet)
-.get("/admin/addProduct",addProductGet)
+
 
 
 

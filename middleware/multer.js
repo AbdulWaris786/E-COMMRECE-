@@ -4,7 +4,7 @@ const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     let uploadPath = 'public/uploads';
     if (req.uploadType === 'products') {
-      if(req.files.length>5){
+      if(req.files.length>=5){
         uploadPath = 'public/uploads/dump';
       }else
       uploadPath = 'public/uploads/products';

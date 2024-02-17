@@ -35,89 +35,58 @@
             </div>
             <div class="content_part">
 
-                <form action="" method="post">
+                <form action="/admin/addProduct" method="post" enctype="multipart/form-data">
                     <div class="frame">
                         <div class="gap_div">
                             <div class="card_div">
                                 <div class="form-group">
-                                    <label for="productName">Product Name</label>
+                                    <label for="productName">PRODUCT NAME</label>
                                     <input type="text" id="productName" name="productName" placeholder="Enter product name">
                                 </div>
                 
                                 <div class="form-group">
-                                    <label for="price">Price</label>
-                                    <input type="text" id="price" name="price" placeholder="Enter price">
+                                    <label for="price">NEW PRICE</label>
+                                    <input type="text" id="price" name="newPrice" placeholder="Enter New  price">
                                 </div>
                 
                                 <div class="form-group">
-                                    <label for="discount">Discount</label>
-                                    <input type="text" id="discount" name="discount" placeholder="Enter discount">
+                                    <label for="discount">OLD PRICE</label>
+                                    <input type="text" id="discount" name="oldPrice" placeholder="Enter Old Price">
                                 </div>
                 
                                 <div class="form-group">
-                                    <label for="stock">Stock</label>
-                                    <input type="text" id="stock" name="stock" placeholder="Enter stock">
+                                    <label for="stock">CATEGORY</label>
+                                    <input type="text" id="stock" name="category" placeholder="Enter Category">
                                 </div>
                 
                                 <div class="form-group">
-                                    <label for="category">Category</label>
-                                    <select id="category" name="category">
-                                        <option value="" selected disabled>Select category</option>
-                                        <option value="home">Home</option>
-                                        <option value="electronics">Electronics</option>
-                                        <option value="mens">Mens</option>
-                                        <option value="womens">Womens</option>
-                                    </select>
+                                    <label for="category">SUB CATEGORY</label>
+                                    <input type="text" id="stock" name="subCategory" placeholder="Enter Sub Category">
                                 </div>
-
-                                <div class="form-group">
-                                    <label for="subCategory">Sub Category</label>
-                                    <select name="subCategory" id="subCategory">
-                                        <option value="" selected disabled>Select sub category</option>
-                                        <option value="">Shirts</option>
-                                        <option value="">Pants</option>
-                                        <option value="">Shoes</option>
-                                        <option value="">Tops</option>
-                                        <option value="">Bottoms</option>
-                                        <option value="">Shawls</option>
-                                        <option value="">Party Wears</option>
-                                        <option value="">Mobiles</option>
-                                        <option value="">Laptops</option>
-                                        <option value="">Watches</option>
-                                        <option value="">Watches</option>                     
-                                        <option value="">Kitchen Items</option>
-                                        <option value="">Bedsheets</option>
-                                        <option value="">Electronic Accessories</option>
-                                    </select>
-                                </div>
-                
-                                <div class="form-group">
-                                    <label for="deliveryDate">Delivery Date</label>
-                                    <input type="date" id="deliveryDate" name="deliveryDate" placeholder="Enter delivery date">
-                                </div>
-                
                                 <div class="form-group">
                                     <label for="colour">Colour</label>
                                     <select name="colour" id="colour">
                                         <option value="" selected disabled>Select color</option>
-                                        <option value="#ff0000" style="color: #ff0000;">Red</option> 
-                                        <option value="#0000ff" style="color: #0000ff;">Blue</option>
-                                        <option value="#00ff00" style="color: #00ff00;">Green</option>
-                                        <option value="#000000" style="color: #000000;">Black</option>
-                                        <option value="#f98000" style="color: #f98000;">Orange</option>
-                                        <option value="#ffea00" style="color: #ffea00;">Yellow</option>     
+                                        <option value="Red" style="color: #ff0000;">Red</option> 
+                                        <option value="Blue" style="color: #0000ff;">Blue</option>
+                                        <option value="Green" style="color: #00ff00;">Green</option>
+                                        <option value="Black" style="color: #000000;">Black</option>
+                                        <option value="Orange" style="color: #f98000;">Orange</option>
+                                        <option value="Yellow" style="color: #ffea00;">Yellow</option>     
                                     </select>
                                 </div>
                 
                                 <div class="form-group">
                                     <label for="size">Size</label>
                                     <select name="size" id="">
-                                        <option value="" selected disabled>Choose Size</option>                                            
-                                        <option value="">Small</option>
-                                        <option value="">Medium</option>
-                                        <option value="">Large</option>
-                                        <option value="">X-Large</option>
-                                        <option value="">XX-Large</option>
+                                        <option value="" selected disabled>Choose Size</option>
+                                        <option value="XX-Small">XX-Small</option>
+                                        <option value="X-Small">X-Small</option>                                          
+                                        <option value="Small">Small</option>
+                                        <option value="Medium">Medium</option>
+                                        <option value="Large">Large</option>
+                                        <option value="X-Large">X-Large</option>
+                                        <option value="XX-Large">XX-Large</option>
                                     </select>
                                 </div>
                 
@@ -138,12 +107,14 @@
                             <div class="img_div">      
                                 <div class="form-group img_centr">
                                     <div class="image_space">
-                                        <img src="" alt="">
+                                        <!-- Display selected images here -->
+                                        <div id="preview"></div>
                                     </div>
-                                   <div class="image_buttn">
-                                    Choose Image
-                                    <input type="file" id="productImage" name="productImage">
-                                   </div>
+                                    <div class="image_buttn">
+                                        <!-- Choose multiple images -->
+                                        <label for="productImage">More Images</label>
+                                        <input type="file" id="productImage" name="productImage" multiple>
+                                    </div>
                                 </div>
                             </div>
                         </div>
