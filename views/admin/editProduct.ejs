@@ -35,38 +35,39 @@
             </div>
             <div class="content_part">
 
-                <form action="/admin/addProduct" method="post" enctype="multipart/form-data">
+                <form action="/admin/editProduct/<%=product._id%>" method="post" enctype="multipart/form-data">
+                    
                     <div class="frame">
                         <div class="gap_div">
                             <div class="card_div">
                                 <div class="form-group">
                                     <label for="productName">PRODUCT NAME</label>
-                                    <input type="text" id="productName" name="productName" placeholder="Enter product name">
+                                    <input type="text" id="productName" value="<%=product.productName%>" name="productName" placeholder="Enter product name">
                                 </div>
                 
                                 <div class="form-group">
                                     <label for="price">NEW PRICE</label>
-                                    <input type="text" id="price" name="newPrice" placeholder="Enter New  price">
+                                    <input type="text" id="price" value="<%=product.newPrice%>" name="newPrice" placeholder="Enter New  price">
                                 </div>
                 
                                 <div class="form-group">
                                     <label for="discount">OLD PRICE</label>
-                                    <input type="text" id="discount" name="oldPrice" placeholder="Enter Old Price">
+                                    <input type="text" id="discount" value="<%=product.oldPrice%>" name="oldPrice" placeholder="Enter Old Price">
                                 </div>
                 
                                 <div class="form-group">
                                     <label for="stock">CATEGORY</label>
-                                    <input type="text" id="stock" name="category" placeholder="Enter Category">
+                                    <input type="text" id="category" value="<%=product.category%>" name="category" placeholder="Enter Category">
                                 </div>
                 
                                 <div class="form-group">
                                     <label for="category">SUB CATEGORY</label>
-                                    <input type="text" id="stock" name="subCategory" placeholder="Enter Sub Category">
+                                    <input type="text" id="subCategory" value="<%=product.subCategory%>" name="subCategory" placeholder="Enter Sub Category">
                                 </div>
                                 <div class="form-group">
                                     <label for="colour">Colour</label>
                                     <select name="colour" id="colour">
-                                        <option value="" selected disabled>Select color</option>
+                                        <option value="" selected disabled><%=product.colour%></option>
                                         <option value="Red" style="color: #ff0000;">Red</option> 
                                         <option value="Blue" style="color: #0000ff;">Blue</option>
                                         <option value="Green" style="color: #00ff00;">Green</option>
@@ -82,7 +83,7 @@
                                 <div class="form-group">
                                     <label for="size">Size</label>
                                     <select name="size" id="">
-                                        <option value="" selected disabled>Choose Size</option>
+                                        <option value="" selected disabled><%=product.size%></option>
                                         <option value="XX-Small">XX-Small</option>
                                         <option value="X-Small">X-Small</option>                                          
                                         <option value="Small">Small</option>
@@ -95,12 +96,12 @@
                 
                                 <div class="form-group">
                                     <label for="quantity">Quantity</label>
-                                    <input type="text" id="quantity" name="quantity" placeholder="Enter quantity">
+                                    <input type="text" id="stock" name="quantity" value="<%=product.quantity%>" placeholder="Enter quantity">
                                 </div>
                 
                                 <div class="form-group">
                                     <label for="description">Description</label>
-                                    <textarea id="description" name="description" placeholder="Enter description"></textarea>
+                                    <textarea id="description" name="description"   placeholder="Enter description"><%=product.description%></textarea>
                                 </div>
                                 <div class="form-group">
 
@@ -111,22 +112,25 @@
                                 <div class="form-group img_centr">
                                     <div class="image_space">
                                         <!-- Display selected images here -->
-                                        <div id="preview"></div>
+                                        <div id="preview"><img src="/uploads/products/<%=product.productImages[3]%>" alt="" style="height: 320px; width: 320px;" ></div>
                                     </div>
                                     <div class="image_buttn">
                                         <!-- Choose multiple images -->
                                         <label for="productImage">More Images</label>
                                         <input type="file" id="productImage" name="productImages" multiple>
+                                        <div id="errorMain" style="color: #ff0000;"></div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                   
                 </form>
 
                          
             </div>
         </div>
     </div>
+    
 </body>
 </html>

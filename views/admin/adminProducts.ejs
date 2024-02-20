@@ -36,7 +36,7 @@
                     <li onclick="window.location.href='/admin/blockedUsers'">BLOCKED USERS</li>
                 </ul>
             </div>
-            <div class="content_part">
+                <div class="content_part">
                 
                     <div class="products_list_head">
                         <p style="font-size: x-large; padding-left: 1.5rem;">Products</p>
@@ -88,7 +88,7 @@
                              <%  products.forEach(data=>{%>
                             <div class="productBox" id="productBox_<%=data._id%>">
                                 <div class="img">
-                                    <img src="/uploads/products/<%=data.productImages[3]%>" alt="" class="img1">
+                                    <img src="/uploads/products/<%=data.productImages[0]%>" alt="" class="img1">
                                 </div>
                                 <div class="content">
                                     <table class="tableProduct">
@@ -111,7 +111,7 @@
                                                 <td class="tableTd"><i class="fa-solid fa-layer-group"></i><%=data.quantity%></td>
                                             </tr>
                                             <tr>
-                                                <td class="tableTd"><i class="fa-solid fa-pen-to-square"></i></td>
+                                                <td class="tableTd"><a href="/admin/editProduct/<%=data._id%>"><i class="fa-solid fa-pen-to-square"></i></a></td>
                                                 <td class="tableTd"><a href="#" onclick="deleteProduct('<%=data._id%>')"><i class="fa-solid fa-trash"></i></a></td>
                                             </tr>
                                         </tbody>

@@ -54,10 +54,10 @@ router.delete("/admin/userDelete/:id",adminController.userdlt)
 //product controller
 router.get("/admin/product",productController.ProductGet)
 router.get("/admin/addProduct",productController.addProductGet)
-router.post("/admin/addProduct",setUploadType("products"),upload.array("productImage",10),productController.addproductPost)
+router.post("/admin/addProduct",setUploadType("products"),upload.array("productImages",10),productController.addproductPost)
 router.delete("/admin/productDlt/:id",productController.productDelete)
-
-
+router.get("/admin/editProduct/:id",productController.editProductGet)
+router.post("/admin/editProduct/:id",setUploadType("products"),upload.array("productImages",10),productController.editProductPatch)
 
 
 

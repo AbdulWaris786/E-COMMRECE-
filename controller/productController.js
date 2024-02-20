@@ -61,5 +61,64 @@ module.exports={
             console.error(error);
             res.status(500).json({ message: 'Internal server error' });
         }
+    },
+    editProductGet:async(req,res)=>{
+        try {
+            const product = await productModel.findById(req.params.id)
+            
+            if(!product){
+                return res.status(404).send("product not found")
+            }
+            res.render("admin/editProduct",{product})
+        } catch (error) {
+            console.error(error);
+            res.status(500).send("server error") 
+        }
+    },
+    editProductPatch:async(req,res)=>{
+        try {
+            const id= req.params.id
+            const product = await productModel.findOne({_id:id})
+            const {productName,newPrice,oldPrice,category,subCategory,colour,size,quantity,description}=req.body
+            const oldImageArray = product.productImages
+            const productImages=req.files ? req.files.map((file)=>file.filename):oldImageArray
+            if(req.files.length == 0){
+                const upadetWithOldArray =await productModel.findOneAndUpdate(
+                    {_id:id},
+                    {$set:{
+                        productName,newPrice,
+                        oldPrice,category,subCategory,
+                        colour,size,quantity,description,productImages
+                    }}
+                )
+                if(upadetWithOldArray){
+                     res.status(200).redirect("/admin/product")
+                }else{
+                     res.status(290).redirect("/admin/product")
+                }
+            }else{
+                const updatedWithnewArray =await productModel.findOneAndUpdate(
+                    {_id:id},
+                    {$set:{
+                        productName,newPrice,
+                        oldPrice,category,subCategory,
+                        colour,size,quantity,description,productImages
+                    }}
+                )
+                if(updatedWithnewArray){
+                    oldImageArray.forEach(async image=>{
+                        await fs.unlinkSync(`./public/uploads/products/${image}`)
+                    })
+                    
+                    res.status(200).redirect("/admin/product")
+                }else{
+                   
+                     res.status(290).redirect("/admin/product")
+                }
+            }
+
+        } catch (error) {
+            console.log(error);
+        }
     }
 }

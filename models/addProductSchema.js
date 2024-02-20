@@ -30,7 +30,7 @@ const productSchema ={
         type:String
     },
     productImages:{
-        type:Array
+        type : Array
     }
 
 }
