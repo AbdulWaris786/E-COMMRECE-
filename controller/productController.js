@@ -120,5 +120,24 @@ module.exports={
         } catch (error) {
             console.log(error);
         }
+    },
+    //user ======================================================
+    womenProductGet:async(req,res)=>{
+        const Product = await productModel.find({category:"women"})
+        res.render("user/userProducts",{Product})
+    },
+    menProductGet:async(req,res)=>{
+        const Product =await productModel.find({category:"mens"})
+        res.render("user/userProducts",{Product})
+    },
+    phonesGet:async(req,res)=>{
+        const Product =await productModel.find({category:"Phones"})
+        res.render("user/userProducts",{Product})
+    },
+    shoesGet:async(req,res)=>{
+        const Product =await productModel.find({category:"shoe"})
+        res.render("user/userProducts",{Product})
     }
+
 }
+
