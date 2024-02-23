@@ -1,5 +1,5 @@
 const mongoose =require("mongoose")
-const { MessagingConfigurationPage } = require("twilio/lib/rest/verify/v2/service/messagingConfiguration")
+
 
 const productSchema ={
     productName:{
@@ -35,6 +35,6 @@ const productSchema ={
 
 }
 const productDataScema =new mongoose.Schema(productSchema)
-const productModel =new mongoose.model("produtDetails",productDataScema)
+const productModel =new mongoose.model("produtdetails",productDataScema)
 
 module.exports=productModel

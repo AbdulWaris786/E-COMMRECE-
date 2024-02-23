@@ -5,7 +5,7 @@ const otpVerification =require("../utility/otpVerification")
 const forgotPassword =require("../utility/forgotPassword")
 const productController=require("../controller/productController")
 const userController = require("../controller/userController")
-
+const addToCartController =require("../controller/addToCartController")
 
 //user login
 router.get("/login",authController.loginGet)
@@ -35,11 +35,18 @@ router.post("/addressAdd",userController.addressAddPost)
 router.get("/",userController.homePageGet)
 
 // user product controller 
-
 router.get("/womens",productController.womenProductGet)
 router.get("/mens",productController.menProductGet)
 router.get("/phones",productController.phonesGet)
 router.get("/shoes",productController.shoesGet)
+
+//ADD TO CART controller
+router.get("/addToCart",addToCartController.addToCartGet)
+router.post("/addToCart/add",addToCartController.addToCartPost)
+router.get("/countCart",addToCartController.countCartGet)
+
+
+
 
 
 module.exports=router
