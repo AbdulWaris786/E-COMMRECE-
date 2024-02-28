@@ -24,22 +24,22 @@ async function fetchCartLength() {
         const cartDetails = response.data.cart 
         
         // Update the cart length on all pages  
-        updateCartLength(itemsLength,cartDetails);
-        
+        updateCartLength(itemsLength);
+        gotocart(cartDetails)
     } catch (error) {
         console.error("Error fetching cart length:", error);
     }
 }
 
 // Function to update the cart length on all pages
-function updateCartLength(length,cart) {
+function gotocart(cart) {
     cart.items.forEach(id=>{
         const a= document.querySelector(`.goto${id.productId}`); 
     console.log(id.productId)
       a.innerText='Go To Cart'
     })
 }
-function updateCartLength(length,cart) {
+function updateCartLength(length) {
     const cartLengthElements = document.querySelectorAll('.cart-length');
     cartLengthElements.forEach(element => {
         element.textContent = length;
@@ -100,4 +100,5 @@ async function updateQuantity(itemId, operation) {
         console.log(error);
     }
 }
+
 

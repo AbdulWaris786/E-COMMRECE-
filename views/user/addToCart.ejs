@@ -1082,7 +1082,7 @@
                                                 </td>
                                                 <td>
 
-                                                    <span class="table-p__price updatePrice<%=item.productId._id%>">$<%=item.productId.newPrice%></span></td>
+                                                    <span class="table-p__price updatePrice<%=item.productId._id%>">$<%=item.productId.newPrice * item.quantity%></span></td>
                                                 <td>
                                                     <div class="table-p__input-counter-wrap">
 
@@ -1204,24 +1204,26 @@
                                             <div class="f-cart__pad-box">
                                                 <div class="u-s-m-b-30">
                                                     <table class="f-cart__table">
+                                                       
                                                         <tbody>
                                                             <tr>
-                                                                <td>SHIPPING</td>
-                                                                <td>$4.00</td>
+                                                                <td>Discount</td>
+                                                                <td>$5.0</td>
                                                             </tr>
                                                             <tr>
-                                                                <td>TAX</td>
-                                                                <td>$0.00</td>
+                                                                <td>GST.Tax</td>
+                                                                <td>$10.0</td>
                                                             </tr>
                                                             <tr>
                                                                 <td>SUBTOTAL</td>
-                                                                <td>$379.00</td>
+                                                                <td class="subtotal">$<%=amount%></td>
                                                             </tr>
                                                             <tr>
                                                                 <td>GRAND TOTAL</td>
-                                                                <td>$379.00</td>
+                                                                <td class="grandTotal">$<%=amount + 5 +10%></td>
                                                             </tr>
                                                         </tbody>
+                                                       
                                                     </table>
                                                 </div>
                                                 <div>

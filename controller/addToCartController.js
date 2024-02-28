@@ -14,8 +14,14 @@ module.exports={
             }else{
 
                 const cartProduct =await CartModel.find({userId}).populate('items.productId')
+                let amount =0
+                const totalAmount = cartProduct[0].items.forEach((data)=>{
+                    const price = data.productId.newPrice
+                    const quantity =data.quantity
+                    amount += price * quantity
+                })
                 
-                res.render("user/addToCart",{cartProduct})
+                res.render("user/addToCart",{cartProduct,amount})
             }
         } catch (error) {
             console.log(error);
