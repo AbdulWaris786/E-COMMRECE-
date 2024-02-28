@@ -44,8 +44,8 @@ router.get("/shoes",productController.shoesGet)
 router.get("/addToCart",addToCartController.addToCartGet)
 router.post("/addToCart/add",addToCartController.addToCartPost)
 router.get("/countCart",addToCartController.countCartGet)
-
-
+router.delete("/addToCartDlt/:id",addToCartController.cartDelete)
+router.post("/updateCart",addToCartController.updateCartPost)
 
 
 
