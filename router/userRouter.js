@@ -50,4 +50,6 @@ router.post("/updateCart",addToCartController.updateCartPost)
 // wishlist controller
 router.get("/wishlist",wishlistController.wishlistGet)
 router.post("/wishlist/add",wishlistController.wishlistPost)
+router.delete("/wishlistDlt/:id",wishlistController.removeWishlist)
+
 module.exports=router

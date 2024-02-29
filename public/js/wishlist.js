@@ -1,3 +1,4 @@
+const { response } = require("express");
 
 async function wishlist(productId,userId){
     if (!userId || !productId) {
@@ -10,4 +11,22 @@ async function wishlist(productId,userId){
     } catch (error) {
         console.error('error adding item to wishlist',error)
     }
+}
+
+function removeWL(itemId){
+    axios.delete(`/wishlistDlt/${itemId}`)
+    .then(response=>{
+        if(response.status ===200){
+            const rowToRemove =document.getElementById(`wishlistRow_${itemId}`)
+            if(rowToRemove){
+                rowToRemove.remove()
+            }else{
+                window.alert("its not remove that wishlist")
+            }
+        }
+    })
+    .catch(error =>{
+        console.error(error);
+    })
+
 }

@@ -1193,7 +1193,7 @@
                                 <!--====== Wishlist Product ======-->
                                 <%wishlistProduct.forEach(data=>{%>
                                     <%  data.items.forEach((item)=>{%>
-                                <div class="w-r u-s-m-b-30">
+                                <div class="w-r u-s-m-b-30" id="wishlistRow_<%=item._id%>">
                                     <div class="w-r__container">    
                                         <div class="w-r__wrap-1">
                                             <div class="w-r__img-wrap">
@@ -1219,7 +1219,7 @@
 
                                             <a class="w-r__link btn--e-transparent-platinum-b-2" href="product-detail.html">VIEW</a>
 
-                                            <a class="w-r__link btn--e-transparent-platinum-b-2" href="#">REMOVE</a></div>
+                                            <a class="w-r__link btn--e-transparent-platinum-b-2" href="#" onclick="removeWL('<%=item._id%>')">REMOVE</a></div>
                                     </div>
                                 </div>
                                 <%})%>

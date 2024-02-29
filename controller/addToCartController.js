@@ -87,10 +87,10 @@ module.exports={
 
             if(removeCart){
                 console.log("wew");
-                return res.status(200).json({ message: 'Category deleted successfully' });
+                return res.status(200).json({ message: 'Cart  deleted successfully' });
             }else{
                 console.log("gs");
-                res.status(404).json({ message: 'Category not found or already deleted' });
+                res.status(404).json({ message: 'Cart not found or already deleted' });
             }
             
         } catch (error) {

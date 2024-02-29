@@ -1,3 +1,4 @@
+const { default: mongoose } = require("mongoose");
 const wishlistModel =require("../models/wishlistSchema")
 
 
@@ -38,5 +39,27 @@ module.exports={
                 }
                 return res.status(500).json({ error: "Internal server error" });
             }
+    },
+    removeWishlist:async(req,res)=>{
+        try {
+            const _id=req.params.id
+            const userId = req.session.email
+            const id =new mongoose.Types.ObjectId(_id)
+            const data =await wishlistModel.find({userId:userId})
+            const removeWishlist =await wishlistModel.updateOne(
+                {userId},
+                {$pull:{items:{_id:id}}}
+            )
+            if(removeWishlist){
+                console.log("poyi");
+                return res.status(200).json({message:"wishlist deleted succesfully"})
+            }else{
+                console.log("povvunnilla");
+                res.status1(404).json({message:"wishlist not found or already delete"})
+            }
+        } catch (error) {
+            console.error(error)
+            res.status(500).json({message:"internal server error"})
+        }
     }
 }
