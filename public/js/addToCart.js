@@ -49,7 +49,7 @@ function updateCartLength(length) {
 // Call fetchCartLength when the DOM content is loaded
 document.addEventListener('DOMContentLoaded', async () => {
   const abc=  await fetchCartLength(); 
-
+    const efg = await gotocart()
 });
 
 function removeCart(cartId){

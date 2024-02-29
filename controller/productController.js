@@ -135,8 +135,10 @@ module.exports={
         res.render("user/userProducts",{Product})
     },
     shoesGet:async(req,res)=>{
+        const userId =req.session.email
+
         const Product =await productModel.find({category:"shoe"})
-        res.render("user/userProducts",{Product})
+        res.render("user/userProducts",{Product,userId})
     }
 
 }

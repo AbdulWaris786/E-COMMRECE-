@@ -6,7 +6,7 @@ const forgotPassword =require("../utility/forgotPassword")
 const productController=require("../controller/productController")
 const userController = require("../controller/userController")
 const addToCartController =require("../controller/addToCartController")
-
+const wishlistController = require("../controller/wishlistController")
 //user login
 router.get("/login",authController.loginGet)
 router.post("/login",authController.loginPost)
@@ -47,6 +47,7 @@ router.get("/countCart",addToCartController.countCartGet)
 router.delete("/addToCartDlt/:id",addToCartController.cartDelete)
 router.post("/updateCart",addToCartController.updateCartPost)
 
-
-
+// wishlist controller
+router.get("/wishlist",wishlistController.wishlistGet)
+router.post("/wishlist/add",wishlistController.wishlistPost)
 module.exports=router
