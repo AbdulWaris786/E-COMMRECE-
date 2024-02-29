@@ -8,19 +8,16 @@ module.exports={
             console.log("arrum illa machuooo");
             res.redirect("/login")
         }else{
-            const wishlistProduct = await wishlistModel.find({userId})
+            const wishlistProduct = await wishlistModel.find({userId}).populate('items.productId')
             res.render("user/wishlist",{wishlistProduct})
         }
     },
     wishlistPost:async(req,res)=>{
-            console.log(req.body,'cn');
             const {userId,productId} =req.body
             if(!userId || !productId){
-                console.log("1");
                 return res.status(400).json({ error: "productId and userId are required" });
             }
             try {
-                console.log("2");
                 const wishlist = await wishlistModel.findOne({userId})
                 if(wishlist){
                     wishlist.items.push({productId})
