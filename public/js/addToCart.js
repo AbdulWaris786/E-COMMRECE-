@@ -8,8 +8,6 @@ async function addToCart(productId) {
     };
     try {
         const response = await axios.post('/addToCart/add', data);
-        console.log(response.data); // Logging the response data for debugging
-        // After adding the item to cart, fetch the updated cart length
         await fetchCartLength();
     } catch (error) {
         console.error('Error adding item to cart:', error);
@@ -35,7 +33,6 @@ async function fetchCartLength() {
 function gotocart(cart) {
     cart.items.forEach(id=>{
         const a= document.querySelector(`.goto${id.productId}`); 
-    console.log(id.productId)
       a.innerText='Go To Cart'
     })
 }
@@ -49,9 +46,12 @@ function updateCartLength(length) {
 // Call fetchCartLength when the DOM content is loaded
 document.addEventListener('DOMContentLoaded', async () => {
   const abc=  await fetchCartLength(); 
-    const efg = await gotocart()
+    
 });
-
+document.addEventListener('DOMContentLoaded', async () => {
+    const efg = await gotocart() 
+     
+});
 function removeCart(cartId){
     axios.delete(`/addToCartDlt/${cartId}`)
     .then(responce =>{

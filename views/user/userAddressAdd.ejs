@@ -977,12 +977,13 @@
                                         <a href="index-3.html"><i class="fas fa-home u-c-brand"></i></a></li>
                                     <li>
 
-                                        <a href="wishlist.html"><i class="far fa-heart"></i></a></li>
+                                        <a href="/wishlist"><i class="far fa-heart"></i></a>
+                                        <span class="whishlist"><span class="wishlist-length"></span></span>
+                                    </li>
                                     <li class="has-dropdown">
 
-                                        <a class="mini-cart-shop-link"><i class="fas fa-shopping-bag"></i>
-
-                                            <span class="total-item-round">2</span></a>
+                                        <a class="mini-cart-shop-link" href="/addToCart"><i class="fas fa-shopping-bag"></i></a>
+                                        <span class="message-count"><span class="cart-length"></span></span>
 
                                         <!--====== Dropdown ======-->
 
@@ -1246,7 +1247,7 @@
                                             <h1 class="dash__h1 u-s-m-b-14">Add new Address</h1>
 
                                             <span class="dash__text u-s-m-b-30">We need an address where we could deliver products.</span>
-                                            <form class="dash-address-manipulation" action="/addressAdd" method="post">
+                                            <form class="dash-address-manipulation" action="/addressAdd/<%=obj%>" method="post">
                                                 <div class="gl-inline">
                                                     <div class="u-s-m-b-30">
 
@@ -1292,8 +1293,8 @@
                                                         <label class="gl-label" for="address-state">STATE/PROVINCE *</label><select class="select-box select-box--primary-style" id="address-state" name="state">
                                                             <option selected value="">Choose State/Province</option>
                                                             <option value="Kerala">Kerala</option>
-                                                            <option value="al">Goa</option>
-                                                            <option value="ny">Delhi</option>
+                                                            <option value="Goa">Goa</option>
+                                                            <option value="goa">Delhi</option>
                                                         </select>
                                                         <!--====== End - Select Box ======-->
                                                     </div>
@@ -1498,8 +1499,10 @@
         ga('create', 'UA-XXXXX-Y', 'auto');
         ga('send', 'pageview')
     </script>
+    <script src="https://kit.fontawesome.com/a550a1676b.js" crossorigin="anonymous"></script>
     <script src="https://www.google-analytics.com/analytics.js" async defer></script>
-
+    <script src="/js/addToCart.js"></script>
+    <script src="/js/wishlist.js"></script>
     <!--====== Vendor Js ======-->
     <script src="/js/vendor.js"></script>
 

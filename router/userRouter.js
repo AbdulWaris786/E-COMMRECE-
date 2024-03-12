@@ -7,6 +7,7 @@ const productController=require("../controller/productController")
 const userController = require("../controller/userController")
 const addToCartController =require("../controller/addToCartController")
 const wishlistController = require("../controller/wishlistController")
+const checkoutController =require("../controller/checkoutController")
 //user login
 router.get("/login",authController.loginGet)
 router.post("/login",authController.loginPost)
@@ -31,7 +32,7 @@ router.post("/forgotOtp",forgotPassword.forgotOtpPost)
 
 // user profile details
 router.get("/addressAdd",userController.addressAddGet)
-router.post("/addressAdd",userController.addressAddPost)
+router.post("/addressAdd/:id",userController.addressAddPost)
 router.get("/",userController.homePageGet)
 
 // user product controller 
@@ -39,6 +40,7 @@ router.get("/womens",productController.womenProductGet)
 router.get("/mens",productController.menProductGet)
 router.get("/phones",productController.phonesGet)
 router.get("/shoes",productController.shoesGet)
+router.get("/productDetails/:id",productController.productGet)
 
 //ADD TO CART controller
 router.get("/addToCart",addToCartController.addToCartGet)
@@ -51,5 +53,10 @@ router.post("/updateCart",addToCartController.updateCartPost)
 router.get("/wishlist",wishlistController.wishlistGet)
 router.post("/wishlist/add",wishlistController.wishlistPost)
 router.delete("/wishlistDlt/:id",wishlistController.removeWishlist)
+router.get("/countWishlist",wishlistController.countWishlistGet)
+
+//checkout controller
+router.get("/checkout",checkoutController.checkoutGet)
+
 
 module.exports=router

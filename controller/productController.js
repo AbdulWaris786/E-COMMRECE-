@@ -1,7 +1,7 @@
-const productModel = require("../models/addProductSchema")
 const path=require("path")
 const fs =require("fs");
-
+const cartModel =require("../models/addToCartSchema")
+const productModel = require("../models/addProductSchema")
 
 
 module.exports={
@@ -15,14 +15,12 @@ module.exports={
     addproductPost:async(req,res)=>{
         try {
             const {productName,newPrice,oldPrice,category,subCategory,colour,size,quantity,description}=req.body
-            // const productImage =req.file?.filename  
             let productImages = [];
                 if (req.files) {
                     req.files.forEach(file => {
                         productImages.push(file.filename);
                     });
                 }
-            console.log(req.body);
             const newProduct =new productModel({
                 productName,newPrice,
                 oldPrice,category,
@@ -123,22 +121,44 @@ module.exports={
     },
     //user ======================================================
     womenProductGet:async(req,res)=>{
+        const userId =req.session.email
         const Product = await productModel.find({category:"women"})
-        res.render("user/userProducts",{Product})
+        res.render("user/userProducts",{Product,userId})
     },
     menProductGet:async(req,res)=>{
+        const userId =req.session.email
         const Product =await productModel.find({category:"mens"})
-        res.render("user/userProducts",{Product})
+        res.render("user/userProducts",{Product,userId})
     },
     phonesGet:async(req,res)=>{
+        const userId =req.session.email
         const Product =await productModel.find({category:"Phones"})
-        res.render("user/userProducts",{Product})
+        res.render("user/userProducts",{Product,userId})
     },
     shoesGet:async(req,res)=>{
         const userId =req.session.email
-
         const Product =await productModel.find({category:"shoe"})
         res.render("user/userProducts",{Product,userId})
+    },
+    productGet:async(req,res)=>{
+        const userId =req.session.email
+        const id= req.params.id
+        if(!userId){
+            const product = await productModel.findById(id)
+            res.render("user/productDetails",{product})
+        }else{
+            const product =await  productModel.findById(id)
+            
+            const cartProduct =await cartModel.findOne({userId})
+            const cart =cartProduct.items.forEach((data)=>{
+                console.log(data,"ithaa");
+            })
+
+            console.log(product);
+
+            res.render("user/productDetails",{product})
+        }
+
     }
 
 }

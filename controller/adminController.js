@@ -33,8 +33,18 @@ module.exports={
     
     UserDetailsGet:async(req,res)=>{
         const obj=req.params.id
-        const address =await userAddressModel.findOne({obj})
-        res.render("admin/userDetails",{address})
+
+        const address =await userAddressModel.findOne({obj:obj})
+        console.log(address);
+        try {
+            if(!address){
+                res.render("admin/notFound")
+            }else{
+                res.render("admin/userDetails",{address})
+            }
+        } catch (error) {
+            console.log(error);
+        }
     },
     blockGet:async(req,res)=>{
         try {

@@ -14,8 +14,10 @@ module.exports={
             }else{
 
                 const cartProduct =await CartModel.find({userId}).populate('items.productId')
+                // console.log(cartProduct,'main');
                 let amount =0
-                const totalAmount = cartProduct[0].items.forEach((data)=>{
+                const Pamount = cartProduct[0].items.forEach((data)=>{
+                    // console.log(data,'main1');
                     const price = data.productId.newPrice
                     const quantity =data.quantity
                     amount += price * quantity
@@ -49,7 +51,6 @@ module.exports={
                 await newCart.save();
             } 
             const lengthItems = cart.items.length
-            console.log(lengthItems);
             return res.status(200).json({ message: "Item added to cart successfully"});
         } catch (error) {
             console.error("Error adding item to cart:", error);

@@ -66,42 +66,43 @@
     <h1>User Address</h1>
 
     <!-- Example user address (replace with actual data) -->
-
+    <%  address.addresses.forEach((item)=>{%>
     <div class="user-address">
         
         <div class="user-address-item">
             <div class="user-address-label">First Name:</div>
-            <div class="user-address-value"><%=address.firstName%></div>
+            <div class="user-address-value"><%=item.firstName%></div>
         </div>
         <div class="user-address-item">
             <div class="user-address-label">Last Name:</div>
-            <div class="user-address-value"><%=address.lastName%></div>
+            <div class="user-address-value"><%=item.lastName%></div>
         </div>
         <div class="user-address-item">
             <div class="user-address-label">Phone:</div>
-            <div class="user-address-value"><%=address.phone%></div>
+            <div class="user-address-value"><%=item.phone%></div>
         </div>
         <div class="user-address-item">
             <div class="user-address-label">Street Address:</div>
-            <div class="user-address-value"><%=address.streetAddress%></div>
+            <div class="user-address-value"><%=item.streetAddress%></div>
         </div>
         <div class="user-address-item">
             <div class="user-address-label">Country:</div>
-            <div class="user-address-value"><%=address.country%></div>
+            <div class="user-address-value"><%=item.country%></div>
         </div>
         <div class="user-address-item">
             <div class="user-address-label">State:</div>
-            <div class="user-address-value"><%=address.state%></div>
+            <div class="user-address-value"><%=item.state%></div>
         </div>
         <div class="user-address-item">
             <div class="user-address-label">City:</div>
-            <div class="user-address-value"><%=address.city%></div>
+            <div class="user-address-value"><%=item.city%></div>
         </div>
         <div class="user-address-item">
             <div class="user-address-label">Pin Code:</div>
-            <div class="user-address-value"><%=address.pinCode%></div>
+            <div class="user-address-value"><%=item.pinCode%></div>
         </div>
     </div>
+    <%})%>
 
 </body>
 </html>
