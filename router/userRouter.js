@@ -57,6 +57,8 @@ router.get("/countWishlist",wishlistController.countWishlistGet)
 
 //checkout controller
 router.get("/checkout",checkoutController.checkoutGet)
-
-
+router.post("/checkout/:id",checkoutController.checkoutPost)
+router.get("/cashOnDelivery",checkoutController.cashOnDeliveryGet)
+router.post("/withCoupon",checkoutController.cashOnDeliveryAPost)
+router.post("/withoutCoupon",checkoutController.cashOnDeliveryBPost) 
 module.exports=router
