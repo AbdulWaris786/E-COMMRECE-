@@ -186,6 +186,7 @@ module.exports={
         const details = req.session.address
         const totalAmount =req.session.amount
         const cart = await cartModel.findOne({userId})
+        console.log(cart);
         const cartProduct = cart.items
         const paymentMethod =req.session.payment
         try {
@@ -219,20 +220,9 @@ module.exports={
         if(!userId){
             res.redirect("/login")
         }else{
-            const orderA =await orderModel.find({coupon:"with Coupon"})
-            const orderB =await orderModel.find({coupon:"withOut Coupon"})
-            const orderC = await orderModel.find({paymentMethod:'RazorPay'})
-            console.log(orderA,orderB);
-            if(!orderA){
-                res.render("user/orderDetails",{orderB,orderC})
-            }else if(!orderB){
-                res.render("user/orderDetails",{orderA,orderC})
-            }else if(!orderC){
-                res.render("user/orderDetails",{orderA,orderB})
-            }else{
-                res.render("user/orderDetails",{orderA,orderB,orderC})
-            }
-            res.render("user/orderDetails",{orderA,orderB,orderC})
+            const order =await orderModel.find({userId:userId}).populate('products.product')
+            console.log(order);
+            res.render("user/orderDetails",{order})
         }
     }, 
     onlinePaymentGet:async(req,res)=>{
