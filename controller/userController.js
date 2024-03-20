@@ -70,24 +70,50 @@ module.exports={
 
         
     },
-    searchBar:async(req,res)=>{
+    searchBar: async (req, res) => {
         const query = req.query.q;
-        const userId =req.session.email
+        const userId = req.session.email;
+    
+        // Pagination parameters
+        const page = parseInt(req.query.page) || 1; // Current page, default to 1 if not provided
+        const limit = parseInt(req.query.limit) || 10; // Number of items per page, default to 10 if not provided
+    
         try {
-          if(query){
-            const products = await productModel.find({
-                $or: [
-                  { productName: { $regex: query, $options: 'i' } },
-                  { subCategory: { $regex: query, $options: 'i' } },
-                  {category:{$regex:query,$options:'i'}}
-                ]
-              });
-            res.render("user/products",{products,userId})
-        }
+            if (query) {
+                const totalProducts = await productModel.countDocuments({
+                    $or: [
+                        { productName: { $regex: query, $options: 'i' } },
+                        { subCategory: { $regex: query, $options: 'i' } },
+                        { category: { $regex: query, $options: 'i' } }
+                    ]
+                });
+    
+                const totalPages = Math.ceil(totalProducts / limit);
+                const offset = (page - 1) * limit;
+    
+                const products = await productModel.find({
+                        $or: [
+                            { productName: { $regex: query, $options: 'i' } },
+                            { subCategory: { $regex: query, $options: 'i' } },
+                            { category: { $regex: query, $options: 'i' } }
+                        ]
+                    })
+                    .limit(limit)
+                    .skip(offset);
+    
+                res.render("user/products", {
+                    products,
+                    userId,
+                    currentPage: page,
+                    totalPages,
+                    hasNextPage: page < totalPages,
+                    hasPreviousPage: page > 1,
+                    query
+                });
+            }
         } catch (error) {
-          res.status(500).json({ error: 'Internal server error' });
+            res.status(500).json({ error: 'Internal server error' });
         }
-      
-      
     }
+    
 }

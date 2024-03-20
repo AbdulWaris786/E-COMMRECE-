@@ -1081,28 +1081,29 @@
                                         <%})%> 
                                     </div>
                                 </div>
-                                <div class="u-s-p-y-60">
+                                <!-- Pagination -->
+<div class="u-s-p-y-60">
+  <ul class="shop-p__pagination">
+      <!-- Previous Page Link -->
+      <li <% if (!hasPreviousPage) { %>class="disabled"<% } %>>
+          <a href="<%= `?q=${query}&page=${currentPage - 1}` %>">&laquo;</a>
+      </li>
 
-                                    <!--====== Pagination ======-->
-                                    <ul class="shop-p__pagination">
-                                        <li class="is-active">
+      <!-- Page Links -->
+      <% for (let i = 1; i <= totalPages; i++) { %>
+          <li <% if (i === currentPage) { %>class="is-active"<% } %>>
+              <a href="<%= `?q=${query}&page=${i}` %>"><%= i %></a>
+          </li>
+      <% } %>
 
-                                            <a href="shop-grid-full.html">1</a></li>
-                                        <li>
+      <!-- Next Page Link -->
+      <li <% if (!hasNextPage) { %>class="disabled"<% } %>>
+          <a href="<%= `?q=${query}&page=${currentPage + 1}` %>">&raquo;</a>
+      </li>
+  </ul>
+</div>
+<!-- End - Pagination -->
 
-                                            <a href="shop-grid-full.html">2</a></li>
-                                        <li>
-
-                                            <a href="shop-grid-full.html">3</a></li>
-                                        <li>
-
-                                            <a href="shop-grid-full.html">4</a></li>
-                                        <li>
-
-                                            <a class="fas fa-angle-right" href="shop-grid-full.html"></a></li>
-                                    </ul>
-                                    <!--====== End - Pagination ======-->
-                                </div>
                             </div>
                         </div>
                     </div>

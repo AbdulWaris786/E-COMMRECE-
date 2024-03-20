@@ -120,25 +120,117 @@ module.exports={
         }
     },
     //user ======================================================
-    womenProductGet:async(req,res)=>{
-        const userId =req.session.email
-        const Product = await productModel.find({category:"women"})
-        res.render("user/userProducts",{Product,userId})
+    womenProductGet: async (req, res) => {
+        const userId = req.session.email;
+    
+        // Pagination parameters
+        const page = parseInt(req.query.page) || 1; // Current page, default to 1 if not provided
+        const limit = parseInt(req.query.limit) || 10; // Number of items per page, default to 10 if not provided
+    
+        try {
+            const totalProducts = await productModel.countDocuments({ category: "women" });
+            const totalPages = Math.ceil(totalProducts / limit);
+            const offset = (page - 1) * limit;
+    
+            const product = await productModel.find({ category: "women" })
+                .limit(limit) 
+                .skip(offset);
+    
+            res.render("user/userProducts", {
+                product,
+                userId,
+                currentPage: page,
+                totalPages,
+                hasNextPage: page < totalPages,
+                hasPreviousPage: page > 1
+            });
+        } catch (error) {
+            res.status(500).json({ error: 'Internal server error' });
+        }
     },
-    menProductGet:async(req,res)=>{
-        const userId =req.session.email
-        const Product =await productModel.find({category:"mens"})
-        res.render("user/userProducts",{Product,userId})
+    menProductGet: async (req, res) => {
+        const userId = req.session.email;
+    
+        // Pagination parameters
+        const page = parseInt(req.query.page) || 1; // Current page, default to 1 if not provided
+        const limit = parseInt(req.query.limit) || 10; // Number of items per page, default to 10 if not provided
+    
+        try {
+            const totalProducts = await productModel.countDocuments({ category: "mens" });
+            const totalPages = Math.ceil(totalProducts / limit);
+            const offset = (page - 1) * limit;
+    
+            const product = await productModel.find({ category: "mens"  })
+                .limit(limit) 
+                .skip(offset);
+    
+            res.render("user/userProducts", {
+                product,
+                userId,
+                currentPage: page,
+                totalPages,
+                hasNextPage: page < totalPages,
+                hasPreviousPage: page > 1
+            });
+        } catch (error) {
+            res.status(500).json({ error: 'Internal server error' });
+        }
     },
-    phonesGet:async(req,res)=>{
-        const userId =req.session.email
-        const Product =await productModel.find({category:"Phones"})
-        res.render("user/userProducts",{Product,userId})
+    phonesGet: async (req, res) => {
+        const userId = req.session.email;
+    
+        // Pagination parameters
+        const page = parseInt(req.query.page) || 1; // Current page, default to 1 if not provided
+        const limit = parseInt(req.query.limit) || 10; // Number of items per page, default to 10 if not provided
+    
+        try {
+            const totalProducts = await productModel.countDocuments({ category: "Phones" });
+            const totalPages = Math.ceil(totalProducts / limit);
+            const offset = (page - 1) * limit;
+    
+            const product = await productModel.find({category: "Phones" })
+                .limit(limit) 
+                .skip(offset);
+    
+            res.render("user/userProducts", {
+                product,
+                userId,
+                currentPage: page,
+                totalPages,
+                hasNextPage: page < totalPages,
+                hasPreviousPage: page > 1
+            });
+        } catch (error) {
+            res.status(500).json({ error: 'Internal server error' });
+        }
     },
-    shoesGet:async(req,res)=>{
-        const userId =req.session.email
-        const Product =await productModel.find({category:"shoe"})
-        res.render("user/userProducts",{Product,userId})
+    shoesGet: async (req, res) => {
+        const userId = req.session.email;
+    
+        // Pagination parameters
+        const page = parseInt(req.query.page) || 1; // Current page, default to 1 if not provided
+        const limit = parseInt(req.query.limit) || 10; // Number of items per page, default to 10 if not provided
+    
+        try {
+            const totalProducts = await productModel.countDocuments({ category: "shoe" });
+            const totalPages = Math.ceil(totalProducts / limit);
+            const offset = (page - 1) * limit;
+    
+            const product = await productModel.find({ category: "shoe" })
+                .limit(limit) 
+                .skip(offset);
+    
+            res.render("user/userProducts", {
+                product,
+                userId,
+                currentPage: page,
+                totalPages,
+                hasNextPage: page < totalPages,
+                hasPreviousPage: page > 1
+            });
+        } catch (error) {
+            res.status(500).json({ error: 'Internal server error' });
+        }
     },
     productGet:async(req,res)=>{
         const userId =req.session.email

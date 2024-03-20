@@ -1973,7 +1973,7 @@
                                 </div>
                                 <div class="shop-p__collection">
                                     <div class="row is-grid-active">
-                                        <%  Product.forEach(data=>{%>
+                                        <%  product.forEach(data=>{%>
                                         <div class="col-lg-4 col-md-6 col-sm-6">
                                             <div class="product-m">
                                                 <div class="product-m__thumb">
@@ -2015,27 +2015,32 @@
                                     </div>
                                 </div>
                                 <div class="u-s-p-y-60">
-
-                                    <!--====== Pagination ======-->
+                                    <!-- Pagination -->
                                     <ul class="shop-p__pagination">
-                                        <li class="is-active">
-
-                                            <a href="shop-side-version-2.html">1</a></li>
-                                        <li>
-
-                                            <a href="shop-side-version-2.html">2</a></li>
-                                        <li>
-
-                                            <a href="shop-side-version-2.html">3</a></li>
-                                        <li>
-
-                                            <a href="shop-side-version-2.html">4</a></li>
-                                        <li>
-
-                                            <a class="fas fa-angle-right" href="shop-side-version-2.html"></a></li>
+                                        <% if (currentPage > 1) { %>
+                                            <!-- Previous Page Link -->
+                                            <li>
+                                                <a href="?page=<%= currentPage - 1 %>">&laquo;</a>
+                                            </li>
+                                        <% } %>
+                                
+                                        <!-- Page Links -->
+                                        <% for (let i = 1; i <= totalPages; i++) { %>
+                                            <li <% if (i === currentPage) { %>class="is-active"<% } %>>
+                                                <a href="?page=<%= i %>"><%= i %></a>
+                                            </li>
+                                        <% } %>
+                                
+                                        <% if (currentPage < totalPages) { %>
+                                            <!-- Next Page Link -->
+                                            <li>
+                                                <a href="?page=<%= currentPage + 1 %>">&raquo;</a>
+                                            </li>
+                                        <% } %>
                                     </ul>
-                                    <!--====== End - Pagination ======-->
+                                    <!-- End - Pagination -->
                                 </div>
+                                
                             </div>
                         </div>
                     </div>
