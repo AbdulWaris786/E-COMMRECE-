@@ -39,7 +39,7 @@ document.getElementById("saveButton").addEventListener("click", function(event) 
 
 document.getElementById("palceOrder").addEventListener("click",async function  (event){
     event.preventDefault();
-    console.log("ji")
+    console.log("jicc") 
     if (selectedAddress) {
         console.log("Placing order with selected address:", selectedAddress);
         var paymentRadioButtons = document.getElementsByName("payment");
@@ -53,18 +53,51 @@ document.getElementById("palceOrder").addEventListener("click",async function  (
             break; // Exit the loop once the selected payment method is found
         }
     }
+
         // Perform actions to place the order using the selected address
         try {
             const response = await axios.post(`/checkout/${grandTotal.textContent}`, {selectedAddress,payment});
+            if(payment=='cash'){
             
-            console.log("Order placed successfully:", response.data);
+                console.log("Order placed successfully:", response.data);
+               
+                const id = response.data.coupon[0]._id;
+                console.log(id);
+                // Construct the URL with the id as a query parameter
+                const urlWithQuery = response.data.url + "?id=" + id;
+                // Redirect the user to the constructed URL
+                window.location.href = urlWithQuery;
+            }else{
+                const { order, key } = response.data;
+
+                const options = {
+                    key: key,
+                    amount: order.amount,
+                    currency: order.currency,
+                    name: 'Ludus',
+                    description: 'Order payment',
+                  
+                    order_id: order.id,
+                    handler: function (response) {
+                        // Payment success callback
+                        console.log('Payment successful! Payment ID:', response.razorpay_payment_id);
+                        // Perform actions after successful payment, such as redirecting to a thank you page
+                        // For example:
+                        window.location.href = "/onlinePayment"; // Redirect to a thank you page
+                    },
+                    prefill: {
+                        name: 'John Doe', // User's name
+                        email: 'john@example.com' // User's email
+                    }
+                };
+        
+                // Initialize Razorpay and open payment modal
+                const rzp = new Razorpay(options);
+                rzp.open();
+        
+            
+            }
            
-            const id = response.data.coupon[0]._id;
-            console.log(id);
-            // Construct the URL with the id as a query parameter
-            const urlWithQuery = response.data.url + "?id=" + id;
-            // Redirect the user to the constructed URL
-            window.location.href = urlWithQuery;
             
         } catch (error) {
             console.log("Error placing order:", error);

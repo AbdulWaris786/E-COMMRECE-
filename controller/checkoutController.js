@@ -4,8 +4,9 @@ const cartModel = require("../models/addToCartSchema")
 const couponModel = require("../models/addCouponSchema")
 const razorpay = require('razorpay')
 const productModel =require("../models/addProductSchema")
-const orderProduct = require("../models/orderProductsSchema")
-var instance = new razorpay({ key_id:process.env.KEYID, key_secret:process.env.KEYSECRET})
+const orderProduct = require("../models/orderProductsSchema");
+const orderModel = require("../models/orderProductsSchema");
+
 
 module.exports={
     checkoutGet:async(req,res)=>{
@@ -34,10 +35,11 @@ module.exports={
     checkoutPost:async(req,res)=>{
         const paymentMethod = req.body.payment
         const amount = req.params.id
+        console.log('ethindo',paymentMethod);
         req.session.payment =paymentMethod
+        req.session.address =req.body.selectedAddress
+        req.session.amount = amount 
         if(paymentMethod =="cash"){
-            req.session.amount = amount
-            req.session.address = req.body.selectedAddress
             if(amount<20000 && amount>10000){
                 const coupon = await couponModel.find({purchaceAbove:10000})
                 const data = {
@@ -67,23 +69,40 @@ module.exports={
                     coupon: coupon
                 };
                 res.status(200).json(data);
+            }else{
+                const coupon = await couponModel.find({purchaceAbove:1000})
+                const data = {
+                    url: "/cashOnDelivery",
+                    coupon: coupon
+                };
+                res.status(200).json(data);
             }
 
 
 
         }else if(paymentMethod =='RazorPay'){
+
+            
             if(amount<10000){
                 const pissa = amount*100
                 console.log(pissa);
-                const key =process.env.KEYID
+                
                 const orderOption ={
                 amount:pissa,
                 currency :'INR',
                 receipt:'receipt_order_1',
                 payment_capture:1
                 }
-                const order =await instance.orders.create(orderOption)
-                res.status(200).json(order,key)
+                try {
+                    // Create order
+                    var instance = new razorpay({ key_id:process.env.KEYID, key_secret:process.env.KEYSECRET})
+                    const order = await instance.orders.create(orderOption);
+                    // Send order response to client
+                    res.status(200).json({ order, key:process.env.KEYID });
+                } catch (error) {
+                    // Handle error
+                    res.status(500).json({ error: 'Failed to create order' });
+                }
             }else{
 
             }
@@ -95,6 +114,7 @@ module.exports={
         const id = req.query.id
         const coupon =await couponModel.findById(id)
         const details = req.session.address
+        console.log("hello",details);
         const amount =req.session.amount
         res.render("user/cashOnDelivery",{amount,coupon,details})
     },
@@ -128,6 +148,12 @@ module.exports={
             price =priceDiscount
         }else if(totalAmount>50000){
             const coupon = await couponModel.find({purchaceAbove:50000})
+            const discount = coupon[0].discount
+            const discountPrice =discountAmount*(discount/100)
+            const priceDiscount =parseFloat(discountPrice)
+            price =priceDiscount
+        }else{
+            const coupon = await couponModel.find({purchaceAbove:1000})
             const discount = coupon[0].discount
             const discountPrice =discountAmount*(discount/100)
             const priceDiscount =parseFloat(discountPrice)
@@ -187,5 +213,30 @@ module.exports={
             console.error('Error saving order:', error);
             res.status(500).json({ message: 'Internal server error' });
         }
+    },
+    orderDetailsGet:async (req,res)=>{
+        const userId =req.session.email
+        if(!userId){
+            res.redirect("/login")
+        }else{
+            const orderA =await orderModel.find({coupon:"with Coupon"})
+            const orderB =await orderModel.find({coupon:"withOut Coupon"})
+            const orderC = await orderModel.find({paymentMethod:'RazorPay'})
+            console.log(orderA,orderB);
+            if(!orderA){
+                res.render("user/orderDetails",{orderB,orderC})
+            }else if(!orderB){
+                res.render("user/orderDetails",{orderA,orderC})
+            }else if(!orderC){
+                res.render("user/orderDetails",{orderA,orderB})
+            }else{
+                res.render("user/orderDetails",{orderA,orderB,orderC})
+            }
+            res.render("user/orderDetails",{orderA,orderB,orderC})
+        }
+    }, 
+    onlinePaymentGet:async(req,res)=>{
+        res.render("user/onlinePayment")
     }
+    
 }

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - Cash on Delivery</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    
+</head>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+
+    header {
+        background-color: #333;
+        color: #fff;
+        padding: 20px;
+        text-align: center;
+    }
+
+    main {
+        padding: 20px;
+    }
+
+    .checkout-section {
+        margin-bottom: 30px;
+    }
+
+    .order-details table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .order-details th, .order-details td {
+        border: 1px solid #ccc;
+        padding: 8px;
+        text-align: left;
+    }
+
+    .payment-method-section {
+        background-color: #f9f9f9;
+        border: 1px solid #ccc;
+        padding: 20px;
+    }
+
+    footer {
+        background-color: #333;
+        color: #fff;
+        padding: 20px;
+        text-align: center;
+    }
+
+    .button-group {
+        margin-top: 20px;
+        text-align: center;
+    }
+
+    .button-group button {
+        margin: 0 10px;
+        background-color: #333;
+        color: #fff;
+        padding: 10px 20px;
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .button-group button:hover {
+        background-color: #555;
+    }
+
+    /* Animation */
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+
+    .fade-in {
+        animation: fadeIn 1s ease;
+    }
+</style>
+<body>
+    <header>
+        <h1 class="fade-in">Coupon Apply</h1>
+    </header>
+    <main class="fade-in">
+        <section class="payment-method-section">
+            <h2>THANKYOU FOR ONLINE PAYMENT</h2>
+            <p>Will be Deliverd in few days.</p>
+        </section>
+        <div class="button-group">
+            <button  id="cancelCouponButton">CONTINUE SHOPPING</button>
+        </div>
+    </main>
+    <script src="/js/onlinePayment.js" ></script> 
+</body>
+</html>

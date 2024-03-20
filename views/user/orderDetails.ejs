@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f3f3f3;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            animation: slide-up 0.5s ease;
+        }
+
+        @keyframes slide-up {
+            0% {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .order-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        .order-id {
+            font-size: 20px;
+            color: #333;
+        }
+
+        .order-date {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .order-items {
+            margin-bottom: 20px;
+        }
+
+        .order-item {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+        }
+
+        .product-info {
+            margin-left: 20px;
+        }
+
+        .product-name {
+            font-weight: bold;
+            color: #333;
+        }
+
+        .status {
+            font-weight: bold;
+            color: #4CAF50; /* Green */
+        }
+
+        .total {
+            font-weight: bold;
+            font-size: 18px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="order-header">
+            <div class="order-id">With Coupon Order</div>
+            <div class="order-date">Date: 2024-03-15</div>
+        </div>
+        <div class="order-items">
+            <div class="order-item">
+                <img src="product1.jpg" alt="Product 1" width="100" height="100">
+                <div class="product-info">
+                    <div class="product-name">Product Name 1</div>
+                    <div class="status"><%=orderA[0].address%></div>
+                    <div>Quantity: 2</div>
+                    <div>Price: $20</div>
+                </div>
+            </div>
+        </div>
+        <div class="total">Total: $70</div>
+    </div>
+    <div class="container">
+        <div class="order-header">
+            <div class="order-id">Without Coupon Order</div>
+            <div class="order-date">Date: 2024-03-15</div>
+        </div>
+        <div class="order-items">
+            <div class="order-item">
+                <img src="product1.jpg" alt="Product 1" width="100" height="100">
+                <div class="product-info">
+                    <div class="product-name">Product Name 1</div>
+                    <div class="status"><%=orderB[0].address%></div>
+                    <div>Quantity: 2</div>
+                    <div>Price: $20</div>
+                </div>
+            </div>
+        </div>
+        <div class="total">Total: $70</div>
+    </div>
+    <div class="container">
+        <div class="order-header">
+            <div class="order-id">RAZORPAY Order</div>
+            <div class="order-date">Date: 2024-03-15</div>
+        </div>
+        <div class="order-items">
+            <div class="order-item">
+                <img src="product1.jpg" alt="Product 1" width="100" height="100">
+                <div class="product-info">
+                    <div class="product-name">Product Name 1</div>
+                    <div class="status"><%=orderC[0].address%></div>
+                    <div>Quantity: 2</div>
+                    <div>Price: $20</div>
+                </div>
+            </div>
+        </div>
+        <div class="total">Total: $70</div>
+    </div>
+</body>
+</html>

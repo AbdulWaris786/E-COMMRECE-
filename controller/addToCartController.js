@@ -15,6 +15,9 @@ module.exports={
 
                 const cartProduct =await CartModel.find({userId}).populate('items.productId')
                 // console.log(cartProduct,'main');
+               if(!cartProduct){
+                res.redirect("/login")
+               }else{
                 let amount =0
                 const Pamount = cartProduct[0].items.forEach((data)=>{
                     // console.log(data,'main1');
@@ -22,8 +25,9 @@ module.exports={
                     const quantity =data.quantity
                     amount += price * quantity
                 })
-                
                 res.render("user/addToCart",{cartProduct,amount})
+                
+               }
             }
         } catch (error) {
             console.log(error);

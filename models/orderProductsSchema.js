@@ -40,7 +40,7 @@ const orderSchema ={
     },
     status: {
         type: String,
-        enum: ['pending',  'shipped', 'delivered'],
+        enum: ['pending',  'shipped', 'delivered','cancelled'],
         default: 'pending'
     },
     createdAt: {

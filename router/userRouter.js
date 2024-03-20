@@ -60,5 +60,8 @@ router.get("/checkout",checkoutController.checkoutGet)
 router.post("/checkout/:id",checkoutController.checkoutPost)
 router.get("/cashOnDelivery",checkoutController.cashOnDeliveryGet)
 router.post("/withCoupon",checkoutController.cashOnDeliveryAPost)
-router.post("/withoutCoupon",checkoutController.cashOnDeliveryBPost) 
+router.post("/withoutCoupon",checkoutController.cashOnDeliveryBPost)
+router.get("/orderDetails",checkoutController.orderDetailsGet) 
+router.get("/onlinePayment",checkoutController.onlinePaymentGet)
+
 module.exports=router
