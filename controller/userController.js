@@ -3,6 +3,7 @@ const profileModel =require("../models/userAddressSchema")
 const flash =require("connect-flash")
 const { default: mongoose } = require("mongoose")
 const signupModal = require("../models/userSignupSchema")
+const productModel = require("../models/addProductSchema")
 
 const emailPattern = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
 const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d@$!%*?&]{8,}$/;
@@ -68,5 +69,25 @@ module.exports={
         }
 
         
+    },
+    searchBar:async(req,res)=>{
+        const query = req.query.q;
+        const userId =req.session.email
+        try {
+          if(query){
+            const products = await productModel.find({
+                $or: [
+                  { productName: { $regex: query, $options: 'i' } },
+                  { subCategory: { $regex: query, $options: 'i' } },
+                  {category:{$regex:query,$options:'i'}}
+                ]
+              });
+            res.render("user/products",{products,userId})
+        }
+        } catch (error) {
+          res.status(500).json({ error: 'Internal server error' });
+        }
+      
+      
     }
 }

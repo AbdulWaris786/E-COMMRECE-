@@ -64,4 +64,10 @@ router.post("/withoutCoupon",checkoutController.cashOnDeliveryBPost)
 router.get("/orderDetails",checkoutController.orderDetailsGet) 
 router.get("/onlinePayment",checkoutController.onlinePaymentGet)
 
+//searchbar 
+router.get("/search",userController.searchBar)
+
+
+
+
 module.exports=router
