@@ -5,17 +5,10 @@ const authController =require("../controller/authController")
 const categoryController =require("../controller/categoryController")
 const adminController =require("../controller/adminController")
 const productController =require("../controller/productController")
-const {
-    
-    aHomePage,
-    aOrderGet,
-
-}= require("../controller/adminController")
 
 //authantication controller
 router.get("/admin/login",authController.aLoginGet)
 router.post("/admin/login",authController.aLoginPost)
-
 router.get("/admin/signup",authController.aSignupGet)
 router.post("/admin/signup",authController.aSignupPost)
 
@@ -59,13 +52,12 @@ router.delete("/admin/productDlt/:id",productController.productDelete)
 router.get("/admin/editProduct/:id",productController.editProductGet)
 router.post("/admin/editProduct/:id",setUploadType("products"),upload.array("productImages",10),productController.editProductPatch)
 
+//dashboard controller
+router.get("/admin/home",adminController.aHomePage) 
 
-
-router.get("/admin/home",aHomePage) 
-
-
-
-.get("/admin/orders",aOrderGet)
+//order controller
+router.get("/admin/orders",adminController.aOrderGet)
+router.post("/admin/orderUpdate",adminController.orderUpdatePost)
 
 
 

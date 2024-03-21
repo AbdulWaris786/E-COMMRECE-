@@ -79,11 +79,33 @@ module.exports={
         res.render("admin/users",{users})
     },
     
-    aOrderGet:(req,res)=>{
-        res.render("admin/orders")
+    aOrderGet:async(req,res)=>{
+        const orderData = await orderModel.find({}).populate('products.product')
+        res.render("admin/orders",{orderData})
     },
-    
-    
+    orderUpdatePost:async(req,res)=>{
+        try {
+            const {selectedValue,orderId}=req.body
+            console.log(selectedValue,orderId);
+            const updateStatus =await orderModel.findOneAndUpdate(
+                {
+                    _id:orderId,
+                },
+                {
+                    $set:{               
+                        status:selectedValue
+                    }
+                }
+            )
+            if(updateStatus){
+                res.status(200).json({success:true})
+            }else{
+                res.status(500).json({success:false})
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    },
     UserDetailsGet:async(req,res)=>{
         const obj=req.params.id
 
