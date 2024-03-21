@@ -1,25 +1,78 @@
-const adminSignupModal = require("../models/adminSignupSchema");
 const userSignupModel=require("../models/userSignupSchema")
 const userAddressModel =require("../models/userAddressSchema")
 const bannerModel =require("../models/addBannerSchema")
 const couponModel =require("../models/addCouponSchema")
-const bcrypt =require("bcrypt");
 const flash = require("connect-flash");
-const categoryModel = require("../models/addCategorySchema")
 const path=require("path")
 const fs =require("fs");
 const { param } = require("../router/adminRouter");
 const { default: mongoose } = require("mongoose");
-
-//verification of pattern AND password
-const emailPattern = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
-const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d@$!%*?&]{8,}$/;
-const gstinRegex = /^[0-9]{2}[A-N]{5}[0-9]{4}[M-P]{1}[1-9A-Z]{1}[Z]{1}[0-9A-Z]{1}$/;
+const productModel =require("../models/addProductSchema")
+const orderModel =require("../models/orderProductsSchema")
 
 module.exports={
     
-    aHomePage:(req,res)=>{
-        res.render("admin/dashboard")
+    aHomePage:async(req,res)=>{
+            const product =await productModel.aggregate([
+                {
+                    $group: {
+                        _id: "$category",
+                        count: { $sum: 1 }
+                    }
+                }
+            ]);
+            
+            // Extract category names and counts into separate arrays
+            const categories = [];
+            const counts = [];  
+            
+            product.forEach(item => {
+                const category = encodeURIComponent(item._id); // Encode category name
+                
+
+
+
+
+                categories.push(category);
+                counts.push(item.count);
+            });
+            const orderData = await orderModel.aggregate([
+                {
+                    $group:{
+                        _id:'$paymentMethod',
+                        count :{$sum:1}
+                    }
+                }
+                
+            ])
+            const dataOrder =await orderModel.aggregate([
+                {
+                    $group:{
+                        _id:'$coupon',
+                        count:{$sum:1}
+                    }  
+                }
+            ])
+            const couponCounts =[]
+            const paymentMethod =[]
+            const Counts =[]
+            const Coupon =[]
+            orderData.forEach(item=>{
+                const method = encodeURIComponent(item._id)
+                console.log(method);
+                paymentMethod.push(method)
+                Counts.push(item.count)
+            })
+            dataOrder.forEach(item=>{
+                const method = encodeURIComponent(item._id)
+                console.log(method);
+                Coupon.push(method)
+                couponCounts.push(item.count)
+            })
+           
+            const paymentType = [...Coupon,...paymentMethod]
+            const paymentTypeCount =[...couponCounts,...Counts]
+            res.render("admin/dashboard", { categories, counts ,paymentType,paymentTypeCount});
     },
     UsersGet:async(req,res)=>{
         const users =await userSignupModel.find({block:false})

@@ -6,6 +6,15 @@
     <title>DASHBOARD</title>
     <link rel="stylesheet" href="/style/adminPages1.css">
     <link rel="stylesheet" href="/style/adminPages2.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        canvas {
+            max-width: 900px;
+            margin: -10 auto;
+            display: block;
+        }
+        
+    </style>
 </head>
 <body>
     <div class="continer">
@@ -40,19 +49,111 @@
                 </div>
                 <div class="earnings_chart">
                     <div class="earnings_diagram">
-                        <div class="earnings_img"></div>
+                        <p>PRODUCT DETAILS</p>
+                        <canvas id="myChart"></canvas>
                     </div>
                     <div class="revenue_diagram">
-                        <div class="revenue_img"></div>
+                        <div class="revenue_img">
+                            <p>ORDERS DETAILS</p>
+                            <canvas id="doughnutChart" width="400" height="400"></canvas>
+                        </div>
                     </div>
     
                 </div>
-                <div class="project_chart">
-                    
+                <!-- <div class="project_chart"> -->
                 </div>
     
             </div>
         </div>
     </div>
+    <p id="pot" style="display:none;"> <%= JSON.stringify(categories) %> </p>
+    
+    <script>
+
+var category = document.getElementById("pot").textContent;
+
+var categoryArray = JSON.parse(category);
+console.log(categoryArray);
+console.log(Array.isArray(categoryArray))
+
+    var counts = <%= JSON.stringify(counts) %>;
+        var orderCount =<%=JSON.stringify(paymentTypeCount)%>;
+
+
+
+        const data = {
+            labels: categoryArray,
+            datasets: [{
+                label: 'My Dataset',
+                data: counts,
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.5)',
+                    'rgba(54, 162, 235, 0.5)',
+                    'rgba(255, 206, 86, 0.5)',
+                    'rgba(75, 192, 192, 0.5)',
+                    
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                   
+                ],
+                borderWidth: 2  
+            }]
+        };
+
+        // Configuration options for the chart
+        const options = {
+    scale: {
+        ticks: {
+            display: false // Remove scale numbers
+        }
+    }
+};
+
+        // Get the canvas element
+        const ctx = document.getElementById('myChart').getContext('2d');
+
+        // Create the chart
+        const myChart = new Chart(ctx, {
+            type: 'polarArea',
+            data:data,
+            options: options
+        });
+
+        var doughnutData = {
+      labels: ['CASH', 'ONLINE', 'WITH COUPON', 'WITHOUT COUPON'],
+      datasets: [{
+        label: 'My Doughnut Chart',
+        data:orderCount,
+        backgroundColor: [
+          'rgba(255, 99, 132, 0.5)',
+          'rgba(54, 162, 235, 0.5)',
+          'rgba(255, 206, 86, 0.5)',
+          'rgba(75, 192, 192, 0.5)'
+        ],
+        borderColor: [
+          'rgba(255, 99, 132, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)'   
+        ],
+        borderWidth: 1
+      }]
+    };
+    // Create doughnut chart
+    var doughnutCtx = document.getElementById('doughnutChart').getContext('2d');
+    var doughnutChart = new Chart(doughnutCtx, {
+      type: 'doughnut',
+      data: doughnutData,
+      options: {
+        responsive: false
+      }
+    });
+
+   
+    </script>
 </body>
 </html>

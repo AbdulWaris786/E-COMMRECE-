@@ -135,6 +135,7 @@
     display: flex;
 }
 .earnings_diagram{
+    text-align: center;
     width: 60%;
     height: 100%;
 }
@@ -149,10 +150,11 @@
     border:1px solid;
 }
 .revenue_img{
-    border:1px solid;
+    /* border:1px solid; */
     margin-left: 1.5rem;
     margin-right: 1.5rem;
     height: 100%;
+    text-align:center;
 }
 .project_chart{
     height: 15rem;
