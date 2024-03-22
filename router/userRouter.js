@@ -33,7 +33,6 @@ router.post("/forgotOtp",forgotPassword.forgotOtpPost)
 // user profile details
 router.get("/addressAdd",userController.addressAddGet)
 router.post("/addressAdd/:id",userController.addressAddPost)
-router.get("/",userController.homePageGet)
 
 // user product controller 
 router.get("/womens",productController.womenProductGet)
@@ -67,7 +66,10 @@ router.get("/onlinePayment",checkoutController.onlinePaymentGet)
 //searchbar 
 router.get("/search",userController.searchBar)
 
+//hompage
+router.get("/",userController.homePageGet)
 
-
+//logout 
+router.get('/logout',userController.logoutGet)
 
 module.exports=router

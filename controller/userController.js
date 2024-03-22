@@ -9,8 +9,12 @@ const emailPattern = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
 const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d@$!%*?&]{8,}$/;
 
 module.exports={
-    homePageGet:(req,res)=>{
-        res.render("user/home")
+    homePageGet:async(req,res)=>{
+        const productMedium = await productModel.find({colour:"Blue"})
+        const productPhone = await productModel.find({subCategory:"i phones 15 "})
+        const weeklyProduct = await productModel.find({subCategory:"new balance"})
+        const flashProduct = await productModel.find({subCategory:"track pants"})
+        res.render("user/home",{productMedium,productPhone,weeklyProduct,flashProduct})
     },
     addressAddGet: async (req, res) => {
         try {
@@ -114,6 +118,11 @@ module.exports={
         } catch (error) {
             res.status(500).json({ error: 'Internal server error' });
         }
+    },
+    logoutGet:(req,res)=>{
+        req.session.destroy(()=>{
+            res.redirect("/login")
+           })
     }
     
 }
