@@ -4,7 +4,7 @@ const flash =require("connect-flash")
 const { default: mongoose } = require("mongoose")
 const signupModal = require("../models/userSignupSchema")
 const productModel = require("../models/addProductSchema")
-
+const bannerModel = require("../models/addBannerSchema")
 const emailPattern = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
 const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d@$!%*?&]{8,}$/;
 
@@ -14,7 +14,8 @@ module.exports={
         const productPhone = await productModel.find({subCategory:"i phones 15 "})
         const weeklyProduct = await productModel.find({subCategory:"new balance"})
         const flashProduct = await productModel.find({subCategory:"track pants"})
-        res.render("user/home",{productMedium,productPhone,weeklyProduct,flashProduct})
+        const banner = await bannerModel.find({})
+        res.render("user/home",{productMedium,productPhone,weeklyProduct,flashProduct,banner})
     },
     addressAddGet: async (req, res) => {
         try {

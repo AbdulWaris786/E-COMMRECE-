@@ -1,5 +1,6 @@
 const bcrypt =require("bcrypt")
 const signupData =require("../models/userSignupSchema")
+const adminSignupModal =require("../models/adminSignupSchema")
 // const profileModel =require("../models/userAddressSchema")
 const flash =require("connect-flash")
 // const {accountSid,authToken,verifySid}=require("../server/config/otp_auth")
@@ -114,7 +115,7 @@ module.exports={
                 if(passwordMatch){
                     console.log("admin login sucessfully");
                     req.session.email=email
-                    res.redirect("/home")
+                    res.redirect("/admin/home")
                 }else{
                     console.log("invalid password");
                 }

@@ -253,5 +253,10 @@ module.exports={
             console.error(error);
             res.status(500).json({ message: 'Internal server error' });
         }
+    },
+    adminLogout:(req,res)=>{
+        req.session.destroy(()=>{
+            res.redirect("/admin/login")
+        })
     }
 }

@@ -59,6 +59,7 @@ router.get("/admin/home",adminController.aHomePage)
 router.get("/admin/orders",adminController.aOrderGet)
 router.post("/admin/orderUpdate",adminController.orderUpdatePost)
 
+router.get("/admin/logout",adminController.adminLogout)
 
 
 
